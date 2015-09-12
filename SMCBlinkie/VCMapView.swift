@@ -33,4 +33,10 @@ extension ViewController: MKMapViewDelegate {
         }
         return nil
     }
+    
+    // Method called when user presses info button in an annotation callout
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
+        calloutAccessoryControlTapped control: UIControl!) {
+            
+    }
 }

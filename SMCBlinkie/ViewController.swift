@@ -13,10 +13,20 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
-      
+    let regionRadius: CLLocationDistance = 1000
+    
+    func centerMapOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Hard coded coordinates of desired corner of shown map
+        let centerLocation = CLLocation(latitude: 41.706202, longitude: -86.250132)
+        centerMapOnLocation(centerLocation)
+    
     }
 
     override func didReceiveMemoryWarning() {

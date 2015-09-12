@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>34129B06-4B85-421D-97B1-D30301167C28</string>
 	<key>IDESourceControlProjectName</key>
-	<string>SMCBlinkie</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>A29D15004CFAF5DE7484C08FF2342552D6156236</key>
 		<string>https://bitbucket.org/jrocha2/smcblinkie.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>SMCBlinkie.xcodeproj</string>
+	<string>SMCBlinkie.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>A29D15004CFAF5DE7484C08FF2342552D6156236</key>

@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreLocation
+import AddressBook
 import MapKit
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
-    
+	@IBOutlet weak var myRoute: MKRoute?
+	
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
     
@@ -48,27 +51,67 @@ class ViewController: UIViewController {
                 coordinate: CLLocationCoordinate2D(latitude: 41.708852, longitude: -86.258089)),
             RouteStop(title: "Opus Hall",
                 coordinate: CLLocationCoordinate2D(latitude: 41.710505, longitude: -86.255539)),
-            RouteStop(title: "The Grotto",
-                coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240979)),
-            RouteStop(title: "Library",
-                coordinate: CLLocationCoordinate2D(latitude: 41.708230, longitude: -86.256315)),
-            RouteStop(title: "Le Mans Hall",
+
+//			  // Will need to add the Grotto, but only after 11pm (potential obstacle)
+//            RouteStop(title: "The Grotto",
+//                coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240979)),
+//			  
+//			  // Not technically on route, but might want to add
+//			  // Messes up overlay - ants to go to Science Lot)
+//            RouteStop(title: "Library",
+//                coordinate: CLLocationCoordinate2D(latitude: 41.708230, longitude: -86.256315)),
+			
+			RouteStop(title: "Le Mans Hall",
                 coordinate: CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)),
         ]
-        
-        
-        for i in arrStops {
-             mapView.addAnnotation(i)
-        }
-
-    
+		
+		var arrCoords: [CLLocationCoordinate2D] = []
+		for i in arrStops {
+			mapView.addAnnotation(i)
+			arrCoords.append(i.coordinate)
+		}
+		
+		var directionsRequest = MKDirectionsRequest()
+		var placemarks = [MKMapItem]()
+		for i in arrCoords {
+			var placemark = MKPlacemark(coordinate: i, addressDictionary: nil )
+			placemarks.append(MKMapItem(placemark: placemark))
+		}
+		
+		directionsRequest.transportType = MKDirectionsTransportType.Automobile
+		for (i, j) in enumerate(placemarks) {
+			if i < (placemarks.count - 1) {
+				directionsRequest.setSource(j)
+				directionsRequest.setDestination(placemarks[i+1])
+			} else if i == (placemarks.count - 1) {
+				directionsRequest.setSource(j)
+				directionsRequest.setDestination(placemarks[0])
+			}
+			var directions = MKDirections(request: directionsRequest)
+			directions.calculateDirectionsWithCompletionHandler {
+				(response: MKDirectionsResponse!, error: NSError!) -> Void in
+				if error == nil {
+					self.myRoute = response.routes[0] as? MKRoute
+					self.mapView.addOverlay(self.myRoute?.polyline)
+				}
+			}
+		}
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+	
+	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+		if overlay is MKPolyline {
+			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+			polylineRenderer.strokeColor = UIColor.blueColor()
+			polylineRenderer.lineWidth = 5
+			return polylineRenderer
+		}
+		return nil
+	}
 
 }
 

@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
         // Adding annotations to be placed on map
         let stop01 = RouteStop(title: "The Grotto",
-            coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240279))
+            coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240979))
         let stop02 = RouteStop(title: "McCandless Hall",
             coordinate: CLLocationCoordinate2D(latitude: 41.708852, longitude: -86.258089))
         

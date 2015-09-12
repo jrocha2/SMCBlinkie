@@ -29,6 +29,15 @@ class ViewController: UIViewController {
         // Hard coded coordinates of desired corner of shown map
         let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.250173)
         centerMapOnLocation(centerLocation)
+        
+        // Adding annotations to be placed on map
+        let stop01 = RouteStop(locationName: "The Grotto",
+            coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240279))
+        let stop02 = RouteStop(locationName: "McCandless Hall",
+            coordinate: CLLocationCoordinate2D(latitude: 41.708852, longitude: -86.258089))
+        
+        mapView.addAnnotation(stop01)
+        mapView.addAnnotation(stop02)
     
     }
 

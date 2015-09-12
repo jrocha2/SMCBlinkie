@@ -15,7 +15,6 @@ class RouteStop: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     // And any other things later like number of girls at stop?
     
-    
     init(title: String, coordinate: CLLocationCoordinate2D) {
         self.title = title
         self.coordinate = coordinate

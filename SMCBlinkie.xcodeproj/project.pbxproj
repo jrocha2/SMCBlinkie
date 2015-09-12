@@ -14,6 +14,7 @@
 		E70A72451BA3E56D0037B539 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E70A72431BA3E56D0037B539 /* LaunchScreen.xib */; };
 		E70A72511BA3E56D0037B539 /* SMCBlinkieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A72501BA3E56D0037B539 /* SMCBlinkieTests.swift */; };
 		E71A03B11BA436F600325C67 /* RouteStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A03B01BA436F600325C67 /* RouteStop.swift */; };
+		E71A03B71BA484C700325C67 /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A03B61BA484C700325C67 /* VCMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		E70A724F1BA3E56D0037B539 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E70A72501BA3E56D0037B539 /* SMCBlinkieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCBlinkieTests.swift; sourceTree = "<group>"; };
 		E71A03B01BA436F600325C67 /* RouteStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteStop.swift; sourceTree = "<group>"; };
+		E71A03B61BA484C700325C67 /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				E70A723C1BA3E56D0037B539 /* ViewController.swift */,
+				E71A03B61BA484C700325C67 /* VCMapView.swift */,
 				E71A03B01BA436F600325C67 /* RouteStop.swift */,
 				E70A723E1BA3E56D0037B539 /* Main.storyboard */,
 				E70A723A1BA3E56D0037B539 /* AppDelegate.swift */,
@@ -216,6 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71A03B71BA484C700325C67 /* VCMapView.swift in Sources */,
 				E71A03B11BA436F600325C67 /* RouteStop.swift in Sources */,
 				E70A723D1BA3E56D0037B539 /* ViewController.swift in Sources */,
 				E70A723B1BA3E56D0037B539 /* AppDelegate.swift in Sources */,

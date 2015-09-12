@@ -13,8 +13,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    let regionWidth: CLLocationDistance = 2000
-    let regionHeight: CLLocationDistance = 1000
+    let regionWidth: CLLocationDistance = 2200
+    let regionHeight: CLLocationDistance = 1100
     
     func centerMapOnLocation(location: CLLocation) {
         
@@ -27,8 +27,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Coordinates of desired corner of shown map
-        let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.250173)
+        let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
         centerMapOnLocation(centerLocation)
+        
+        mapView.delegate = self     // Set ViewController as delegate of mapView
         
         // Hard coded annotations to be placed on map
         let stop01 = RouteStop(title: "The Grotto",

@@ -13,10 +13,13 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    let regionRadius: CLLocationDistance = 1000
+    let regionWidth: CLLocationDistance = 2000
+    let regionHeight: CLLocationDistance = 1000
     
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        
+        // Create region of map based on center point and distances from it 
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionWidth, regionHeight)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
@@ -24,7 +27,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Hard coded coordinates of desired corner of shown map
-        let centerLocation = CLLocation(latitude: 41.706202, longitude: -86.250132)
+        let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.250173)
         centerMapOnLocation(centerLocation)
     
     }

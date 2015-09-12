@@ -10,11 +10,11 @@ import Foundation
 import MapKit
 
 class RouteStop: NSObject, MKAnnotation {
-    let locationName: String
+    let title: String
     let coordinate: CLLocationCoordinate2D
     
-    init(locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.locationName = locationName
+    init(title: String, coordinate: CLLocationCoordinate2D) {
+        self.title = title
         self.coordinate = coordinate
         
         super.init()

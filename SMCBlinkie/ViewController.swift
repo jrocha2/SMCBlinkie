@@ -31,9 +31,9 @@ class ViewController: UIViewController {
         centerMapOnLocation(centerLocation)
         
         // Adding annotations to be placed on map
-        let stop01 = RouteStop(locationName: "The Grotto",
+        let stop01 = RouteStop(title: "The Grotto",
             coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240279))
-        let stop02 = RouteStop(locationName: "McCandless Hall",
+        let stop02 = RouteStop(title: "McCandless Hall",
             coordinate: CLLocationCoordinate2D(latitude: 41.708852, longitude: -86.258089))
         
         mapView.addAnnotation(stop01)

@@ -12,11 +12,12 @@ import AddressBook
 import MapKit
 import Firebase
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
-	
+    
+	var toPass:Bool!
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
     
@@ -30,11 +31,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let isAdmin = toPass   // Flag that identifies which user
+        
         // Coordinates of desired corner of shown map
         let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
         centerMapOnLocation(centerLocation)
         
-        mapView.delegate = self     // Set ViewController as delegate of mapView
+        mapView.delegate = self       // Set ViewController as delegate of mapView
         
         // Hard coded annotations to be placed on map
         let arrStops = [
@@ -119,6 +122,7 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
     }
 	
 	// Overlay renderer
@@ -131,5 +135,44 @@ class ViewController: UIViewController {
 		}
 		return nil
 	}
+    
+    // Method called for every annotation added to the map that returns the view for the annotation
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if let annotation = annotation as? RouteStop {
+            let identifier = "pin"
+            var view: MKPinAnnotationView
+            
+            // If some annotation views offscreen, dequeues to allow for reuse
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                as? MKPinAnnotationView {
+                    dequeuedView.annotation = annotation
+                    view = dequeuedView
+            } else {
+                // Else it create new annotation with all relevant properties
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+                view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+            }
+            return view
+        } else if let annotation = annotation as? BlinkieMarker {
+            let identifier = "marker"
+            var view: MKAnnotationView
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = true
+            view.calloutOffset = CGPoint(x: -5, y: 5)
+            view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+            view.image = UIImage(named: "blinkie")
+            return view
+        }
+        return nil
+    }
+    
+    // Method called when user presses info button in an annotation callout
+    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
+        calloutAccessoryControlTapped control: UIControl!) {
+            
+    }
 }
+
 

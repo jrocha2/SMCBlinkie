@@ -10,9 +10,9 @@ import UIKit
 
 class AuthenticationViewController: UIViewController {
 
+    var user = ""
     @IBAction func authenticate(sender: UIButton) {
-        let user = sender.currentTitle!
-        println("The current user is set to: " + user)
+        user = sender.currentTitle!
     }
     
     override func viewDidLoad() {
@@ -23,6 +23,17 @@ class AuthenticationViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
+            if (segue.identifier == "adminSegue") {
+                var svc = segue!.destinationViewController as! ViewController;
+                if (user == "Admin") {
+                    svc.toPass = true
+                } else {
+                    svc.toPass = false
+                }
+                
+            }
+        }
     }
     
 

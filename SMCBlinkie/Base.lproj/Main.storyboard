@@ -24,7 +24,7 @@
                                 </state>
                                 <connections>
                                     <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="XT1-0f-Qpm"/>
-                                    <segue destination="Hs9-mC-aKb" kind="show" id="tJg-r2-9WE"/>
+                                    <segue destination="Hs9-mC-aKb" kind="show" identifier="adminSeque" id="tJg-r2-9WE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7D-sW-Ctk">
@@ -35,7 +35,7 @@
                                 </state>
                                 <connections>
                                     <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="xTr-cN-jfH"/>
-                                    <segue destination="Hs9-mC-aKb" kind="show" id="cv7-AA-tWc"/>
+                                    <segue destination="Hs9-mC-aKb" kind="show" identifier="studentSegue" id="cqo-SW-r6n"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -58,7 +58,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mxu-aM-Hn8">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxu-aM-Hn8">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
                         </subviews>
@@ -74,6 +74,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tJg-r2-9WE"/>
+        <segue reference="cqo-SW-r6n"/>
     </inferredMetricsTieBreakers>
 </document>

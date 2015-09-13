@@ -21,6 +21,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var isAdmin = false
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
+    var lastStop: String = ""
     
     
     func centerMapOnLocation(location: CLLocation) {
@@ -194,9 +195,15 @@ class ViewController: UIViewController, MKMapViewDelegate {
             var url = rootURL + identifier
            
             if isAdmin {
-                url = url + "/isNextStop"
-                let nextIndicator = Firebase(url: url)
-                nextIndicator.setValue(1)
+                if lastStop != "" {
+                    let previous = Firebase(url: rootURL + lastStop + "/isNextStop")
+                    previous.setValue(0)
+                }
+                if lastStop != identifier {
+                    let nextIndicator = Firebase(url: url + "/isNextStop")
+                    nextIndicator.setValue(1)
+                    lastStop = identifier
+                }
             } else {
                 url = url + "/girlsWaiting"
                 let numGirls = Firebase(url: url)

@@ -24,7 +24,7 @@
                                 </state>
                                 <connections>
                                     <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="XT1-0f-Qpm"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="WZ9-5e-z96"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="4f5-tq-GQ6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7D-sW-Ctk">
@@ -35,7 +35,7 @@
                                 </state>
                                 <connections>
                                     <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="xTr-cN-jfH"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="qgx-Ju-bqN"/>
+                                    <segue destination="tAJ-DS-BlC" kind="show" id="sh3-OG-0Lb"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -44,12 +44,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sVb-xV-hXC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="792" y="188"/>
+            <point key="canvasLocation" x="792" y="194"/>
         </scene>
-        <!--View Controller-->
+        <!--Admin View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SMCBlinkie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AdminViewController" customModule="SMCBlinkie" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -70,10 +70,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1588" y="188"/>
+            <point key="canvasLocation" x="1616" y="-138"/>
+        </scene>
+        <!--Student View Controller-->
+        <scene sceneID="o0D-5k-2i9">
+            <objects>
+                <viewController id="tAJ-DS-BlC" customClass="StudentViewController" customModule="SMCBlinkie" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3pf-el-qdA"/>
+                        <viewControllerLayoutGuide type="bottom" id="lf8-bV-leO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Euh-Ah-ZfH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PA7-0v-2pR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="PA7-0v-2pR" id="cH1-uv-Izx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TsM-az-gmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1619" y="611"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="qgx-Ju-bqN"/>
-    </inferredMetricsTieBreakers>
 </document>

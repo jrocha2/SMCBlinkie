@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AdminViewController.swift
 //  SMCBlinkie
 //
 //  Created by John Rocha on 9/12/15.
@@ -12,7 +12,7 @@ import AddressBook
 import MapKit
 import Firebase
 
-class ViewController: UIViewController {
+class AdminViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         let myRootRef = Firebase(url: "https://sweltering-fire-588.firebaseio.com/")
         let blinkieLocation = Firebase(url: "https://sweltering-fire-588.firebaseio.com/blinkieLocation")
         
-        mapView.delegate = self     // Set ViewController as delegate of mapView
+        mapView.delegate = self    // Set ViewController as delegate of mapView
         
         // Hard coded annotations to be placed on map
         let arrStops = [

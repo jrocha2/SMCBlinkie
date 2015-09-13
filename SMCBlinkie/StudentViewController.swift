@@ -14,7 +14,6 @@ import Firebase
 
 class StudentViewController: UIViewController {
 
-    
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
 	
@@ -72,12 +71,23 @@ class StudentViewController: UIViewController {
         ]
 		
 		mapView.addAnnotations(arrStops)
-        
+		
+		blinkieLocation.setValue()
+		
+		['lat', 'data',
+		'lon', 'data2','
+		]
+		[0].lat => data
+		
         // Read data and react to changes
         blinkieLocation.observeEventType(.Value, withBlock: {
             snapshot in
             if let coords = snapshot.value as? CLLocationCoordinate2D {
 				//stuff
+				//retrieve firebase data as ("4.5555, 6.445")
+				lat = (double) fbdata(0)
+				long = (double) fbdata(1)
+				let blocation = (lat,long) CLLocationCoordinate2D
 			}
         })
         

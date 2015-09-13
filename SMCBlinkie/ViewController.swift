@@ -82,7 +82,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         let blinkieLocation = Firebase(url: rootURL + "blinkieLocation")
         
 		// Set data
-		let bLoc = ["latitude": 41.707285, "longitude": -86.257152]
+		let bLoc = ["latitude": 4.999999, "longitude": -8.999999]
 		blinkieLocation.setValue(bLoc)
 		var bCoords = CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)
 		let bMark = BlinkieMarker(title: "Blinkie", coordinate: bCoords)
@@ -132,16 +132,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 	
 	// Overlay renderer
-	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-		if overlay is MKPolyline {
-			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
-			polylineRenderer.strokeColor = UIColor.blueColor()
-			polylineRenderer.lineWidth = 5
-			return polylineRenderer
-		}
-		return nil
-	}
-    
+//	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+//		if overlay is MKPolyline {
+//			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+//			polylineRenderer.strokeColor = UIColor.blueColor()
+//			polylineRenderer.lineWidth = 5
+//			return polylineRenderer
+//		}
+//		return nil
+//	}
+	
     // Method called for every annotation added to the map that returns the view for the annotation
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if let annotation = annotation as? RouteStop {
@@ -168,11 +168,34 @@ class ViewController: UIViewController, MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
-            view.image = UIImage(named: "blinkie")
+            view.image = UIImage(named: "blinkieMark")
             return view
         }
         return nil
     }
+	
+	func drawCircle(location: CLLocation){
+		self.mapView.delegate = self
+		var circle = MKCircle(centerCoordinate: location.coordinate, radius: 5)
+		self.mapView.addOverlay(circle)
+	}
+	
+	// Overlay renderer
+	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+		if overlay is MKCircle {
+			var circle = MKCircleRenderer(overlay: overlay)
+			circle.strokeColor = UIColor.redColor()
+			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+			circle.lineWidth = 1
+			return circle
+		} else if overlay is MKPolyline {
+			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+			polylineRenderer.strokeColor = UIColor.blueColor()
+			polylineRenderer.lineWidth = 5
+			return polylineRenderer
+		}
+			return nil
+	}
     
     // take annotation title and turn it into database relevant child id
     func titleToId(title: String) -> String {

@@ -34,10 +34,6 @@ class ViewController: UIViewController {
         let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
         centerMapOnLocation(centerLocation)
         
-        // Root reference to database is const
-        let myRootRef = Firebase(url: "https://sweltering-fire-588.firebaseio.com/")
-        let blinkieLocation = Firebase(url: "https://sweltering-fire-588.firebaseio.com/blinkieLocation")
-        
         mapView.delegate = self     // Set ViewController as delegate of mapView
         
         // Hard coded annotations to be placed on map
@@ -72,30 +68,23 @@ class ViewController: UIViewController {
 		
 		mapView.addAnnotations(arrStops)
 		
-		blinkieLocation.setValue()
+		// Root reference to database is const
+		let myRootRef = Firebase(url: "https://sweltering-fire-588.firebaseio.com/")
+		let blinkieLocation = Firebase(url: "https://sweltering-fire-588.firebaseio.com/blinkieLocation")
 		
-		['lat', 'data',
-		'lon', 'data2','
-		]
-		[0].lat => data
+		// Set data
+		let bLoc = ["latitude": 41.707285, "longitude": -86.257152]
+		blinkieLocation.setValue(bLoc)
+		var bCoords = CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)
+		let bMark = BlinkieMarker(title: "Blinkie", coordinate: bCoords)
+		mapView.addAnnotation(bMark)
 		
-        // Read data and react to changes
-        blinkieLocation.observeEventType(.Value, withBlock: {
-            snapshot in
-            if let coords = snapshot.value as? CLLocationCoordinate2D {
-				//stuff
-				//retrieve firebase data as ("4.5555, 6.445")
-				lat = (double) fbdata(0)
-				long = (double) fbdata(1)
-				let blocation = (lat,long) CLLocationCoordinate2D
-			}
-        })
-        
-//		// Array of location coordinates
-//		var arrCoords: [CLLocationCoordinate2D] = []
-//		for i in arrStops {
-//			arrCoords.append(i.coordinate)
-//		}
+//        // Read data and react to changes
+//        blinkieLocation.observeEventType(.ChildChanged, withBlock: { snapshot in
+//            let bLat = snapshot.value.objectForKey("latitude") as? CLLocationDegrees
+//			let bLon = snapshot.value.objectForKey("longitude") as? CLLocationDegrees
+//			bCoords = CLLocationCoordinate2DMake(bLat, bLon)
+//        })
 		
 		// Placemarks for directions for route overlay
 		var directionsRequest = MKDirectionsRequest()

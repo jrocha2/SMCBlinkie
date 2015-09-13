@@ -30,10 +30,28 @@ extension ViewController: MKMapViewDelegate {
                 view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
             }
             return view
-        }
+        } else if let annotation = annotation as? BlinkieMarker {
+			let identifier = "marker"
+			var view: MKAnnotationView
+			
+			// If some annotation views offscreen, dequeues to allow for reuse
+			if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+				as? MKAnnotationView {
+					dequeuedView.annotation = annotation
+					view = dequeuedView
+			} else {
+				// Else it create new annotation with all relevant properties
+				view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+				view.canShowCallout = true
+				view.calloutOffset = CGPoint(x: -5, y: 5)
+				view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+				view.image = UIImage(named: "blinkie")
+			}
+			return view
+		}
         return nil
     }
-    
+	
     // Method called when user presses info button in an annotation callout
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
         calloutAccessoryControlTapped control: UIControl!) {

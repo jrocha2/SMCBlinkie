@@ -69,28 +69,33 @@ class ViewController: UIViewController {
 			RouteStop(title: "Le Mans Hall",
                 coordinate: CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)),
         ]
-
+		
+		mapView.addAnnotations(arrStops)
         
         // Read data and react to changes
         blinkieLocation.observeEventType(.Value, withBlock: {
             snapshot in
-            println("\(snapshot.key) -> \(snapshot.value)")
+            if let coords = snapshot.value as? CLLocationCoordinate2D {
+				//stuff
+			}
         })
         
+//		// Array of location coordinates
+//		var arrCoords: [CLLocationCoordinate2D] = []
+//		for i in arrStops {
+//			arrCoords.append(i.coordinate)
+//		}
 		
-		var arrCoords: [CLLocationCoordinate2D] = []
-		for i in arrStops {
-			mapView.addAnnotation(i)
-			arrCoords.append(i.coordinate)
-		}
-		
+		// Placemarks for directions for route overlay
 		var directionsRequest = MKDirectionsRequest()
 		var placemarks = [MKMapItem]()
-		for i in arrCoords {
-			var placemark = MKPlacemark(coordinate: i, addressDictionary: nil )
+		//for i in arrCoords {
+		for i in arrStops {
+			var placemark = MKPlacemark(coordinate: i.coordinate, addressDictionary: nil )
 			placemarks.append(MKMapItem(placemark: placemark))
 		}
 		
+		// Get directions and add overlay
 		directionsRequest.transportType = MKDirectionsTransportType.Automobile
 		for (i, j) in enumerate(placemarks) {
 			if i < (placemarks.count - 1) {
@@ -116,6 +121,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
+	// Overlay renderer
 	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
 		if overlay is MKPolyline {
 			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
@@ -125,6 +131,5 @@ class ViewController: UIViewController {
 		}
 		return nil
 	}
-
 }
 

@@ -17,9 +17,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
     
-	var toPass:Bool!
+    var toPass:Bool!
+    var isAdmin = false
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
+    
     
     func centerMapOnLocation(location: CLLocation) {
         
@@ -31,8 +33,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let isAdmin = toPass   // Flag that identifies which user
-        
+        isAdmin = toPass // Flag that identifies which user
+
         // Coordinates of desired corner of shown map
         let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
         centerMapOnLocation(centerLocation)
@@ -58,23 +60,26 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
 //			  // Will need to add the Grotto, but only after 11pm (potential obstacle)
 //            RouteStop(title: "The Grotto",
-//                coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240979)),
+//                coordinate: CLLocationCoordinate2D(latitude: 41.703068, longitude: -86.240979),
+//                id: "theGrotto"),
 //			  
 //			  // Not technically on route, but might want to add
 //			  // Messes up overlay - ants to go to Science Lot)
 //            RouteStop(title: "Library",
-//                coordinate: CLLocationCoordinate2D(latitude: 41.708230, longitude: -86.256315)),
+//                coordinate: CLLocationCoordinate2D(latitude: 41.708230, longitude: -86.256315),
+//                id: "library"),
 			
 			RouteStop(title: "Le Mans Hall",
-                coordinate: CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)),
+                coordinate: CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152))
         ]
 		
 		mapView.addAnnotations(arrStops)
 		
-		// Root reference to database is const
-		let myRootRef = Firebase(url: "https://sweltering-fire-588.firebaseio.com/")
-		let blinkieLocation = Firebase(url: "https://sweltering-fire-588.firebaseio.com/blinkieLocation")
-		
+        // Root reference to database is const
+        let rootURL = "https://sweltering-fire-588.firebaseio.com/"
+        let myRootRef = Firebase(url: rootURL)
+        let blinkieLocation = Firebase(url: rootURL + "blinkieLocation")
+        
 		// Set data
 		let bLoc = ["latitude": 41.707285, "longitude": -86.257152]
 		blinkieLocation.setValue(bLoc)
@@ -168,10 +173,39 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return nil
     }
     
+    // take annotation title and turn it into database relevant child id
+    func titleToId(title: String) -> String {
+        var identifier = title.lowercaseString
+        identifier = title.capitalizedString
+        var pieces : [String] = identifier.componentsSeparatedByCharactersInSet(NSCharacterSet (charactersInString: "- /"))
+        pieces[0] = pieces[0].lowercaseString
+        var id = ""
+        for piece in pieces {
+            id = id + piece
+        }
+        return id
+    }
+    
     // Method called when user presses info button in an annotation callout
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
         calloutAccessoryControlTapped control: UIControl!) {
-            
+            let rootURL = "https://sweltering-fire-588.firebaseio.com/"
+            let identifier = titleToId("\(view.annotation.title!)")
+            var url = rootURL + identifier
+           
+            if isAdmin {
+                url = url + "/isNextStop"
+                let nextIndicator = Firebase(url: url)
+                nextIndicator.setValue(1)
+            } else {
+                url = url + "/girlsWaiting"
+                let numGirls = Firebase(url: url)
+                numGirls.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    var current = "\(snapshot.value)".toInt()
+                    numGirls.setValue(current!+1)
+                })
+            }
+          
     }
 }
 

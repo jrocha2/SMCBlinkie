@@ -23,8 +23,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="XT1-0f-Qpm"/>
-                                    <segue destination="Hs9-mC-aKb" kind="show" identifier="adminSeque" id="tJg-r2-9WE"/>
+                                    <segue destination="Hs9-mC-aKb" kind="show" identifier="adminSegue" id="tJg-r2-9WE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7D-sW-Ctk">
@@ -34,7 +33,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="xTr-cN-jfH"/>
                                     <segue destination="Hs9-mC-aKb" kind="show" identifier="studentSegue" id="cqo-SW-r6n"/>
                                 </connections>
                             </button>

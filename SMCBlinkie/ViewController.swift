@@ -16,7 +16,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
-	
+    
+	var toPass:Bool!
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
     
@@ -29,6 +30,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let isAdmin = toPass   // Flag that identifies which user
         
         // Coordinates of desired corner of shown map
         let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
@@ -119,6 +122,7 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
     }
 	
 	// Overlay renderer

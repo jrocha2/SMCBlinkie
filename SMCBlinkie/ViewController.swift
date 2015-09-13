@@ -1,5 +1,5 @@
 //
-//  AdminViewController.swift
+//  StudentViewController.swift
 //  SMCBlinkie
 //
 //  Created by John Rocha on 9/12/15.
@@ -12,7 +12,7 @@ import AddressBook
 import MapKit
 import Firebase
 
-class AdminViewController: UIViewController {
+class ViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
@@ -38,7 +38,7 @@ class AdminViewController: UIViewController {
         let myRootRef = Firebase(url: "https://sweltering-fire-588.firebaseio.com/")
         let blinkieLocation = Firebase(url: "https://sweltering-fire-588.firebaseio.com/blinkieLocation")
         
-        mapView.delegate = self    // Set ViewController as delegate of mapView
+        mapView.delegate = self     // Set ViewController as delegate of mapView
         
         // Hard coded annotations to be placed on map
         let arrStops = [
@@ -69,28 +69,44 @@ class AdminViewController: UIViewController {
 			RouteStop(title: "Le Mans Hall",
                 coordinate: CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)),
         ]
-
-        
+		
+		mapView.addAnnotations(arrStops)
+		
+		blinkieLocation.setValue()
+		
+		['lat', 'data',
+		'lon', 'data2','
+		]
+		[0].lat => data
+		
         // Read data and react to changes
         blinkieLocation.observeEventType(.Value, withBlock: {
             snapshot in
-            println("\(snapshot.key) -> \(snapshot.value)")
+            if let coords = snapshot.value as? CLLocationCoordinate2D {
+				//stuff
+				//retrieve firebase data as ("4.5555, 6.445")
+				lat = (double) fbdata(0)
+				long = (double) fbdata(1)
+				let blocation = (lat,long) CLLocationCoordinate2D
+			}
         })
         
+//		// Array of location coordinates
+//		var arrCoords: [CLLocationCoordinate2D] = []
+//		for i in arrStops {
+//			arrCoords.append(i.coordinate)
+//		}
 		
-		var arrCoords: [CLLocationCoordinate2D] = []
-		for i in arrStops {
-			mapView.addAnnotation(i)
-			arrCoords.append(i.coordinate)
-		}
-		
+		// Placemarks for directions for route overlay
 		var directionsRequest = MKDirectionsRequest()
 		var placemarks = [MKMapItem]()
-		for i in arrCoords {
-			var placemark = MKPlacemark(coordinate: i, addressDictionary: nil )
+		//for i in arrCoords {
+		for i in arrStops {
+			var placemark = MKPlacemark(coordinate: i.coordinate, addressDictionary: nil )
 			placemarks.append(MKMapItem(placemark: placemark))
 		}
 		
+		// Get directions and add overlay
 		directionsRequest.transportType = MKDirectionsTransportType.Automobile
 		for (i, j) in enumerate(placemarks) {
 			if i < (placemarks.count - 1) {
@@ -116,6 +132,7 @@ class AdminViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 	
+	// Overlay renderer
 	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
 		if overlay is MKPolyline {
 			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
@@ -125,6 +142,5 @@ class AdminViewController: UIViewController {
 		}
 		return nil
 	}
-
 }
 

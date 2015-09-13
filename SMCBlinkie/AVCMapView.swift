@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-extension ViewController: MKMapViewDelegate {
+extension AdminViewController: MKMapViewDelegate {
     
     // Method called for every annotation added to the map that returns the view for the annotation
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {

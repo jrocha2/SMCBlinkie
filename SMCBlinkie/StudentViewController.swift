@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  StudentViewController.swift
 //  SMCBlinkie
 //
 //  Created by John Rocha on 9/12/15.
@@ -12,8 +12,9 @@ import AddressBook
 import MapKit
 import Firebase
 
-class ViewController: UIViewController {
+class StudentViewController: UIViewController {
 
+    
     @IBOutlet weak var mapView: MKMapView!
 	@IBOutlet weak var myRoute: MKRoute?
 	

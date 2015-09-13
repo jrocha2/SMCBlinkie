@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -29,6 +30,10 @@ class ViewController: UIViewController {
         // Coordinates of desired corner of shown map
         let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
         centerMapOnLocation(centerLocation)
+        
+        // Root reference to database is const
+        let myRootRef = Firebase(url: "https://sweltering-fire-588.firebaseio.com/")
+        let blinkieLocation = Firebase(url: "https://sweltering-fire-588.firebaseio.com/blinkieLocation")
         
         mapView.delegate = self     // Set ViewController as delegate of mapView
         
@@ -56,12 +61,16 @@ class ViewController: UIViewController {
                 coordinate: CLLocationCoordinate2D(latitude: 41.707285, longitude: -86.257152)),
         ]
         
-        
         for i in arrStops {
              mapView.addAnnotation(i)
         }
-
-    
+        
+        // Read data and react to changes
+        blinkieLocation.observeEventType(.Value, withBlock: {
+            snapshot in
+            println("\(snapshot.key) -> \(snapshot.value)")
+        })
+        
     }
 
     override func didReceiveMemoryWarning() {

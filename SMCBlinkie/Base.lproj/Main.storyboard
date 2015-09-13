@@ -24,7 +24,7 @@
                                 </state>
                                 <connections>
                                     <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="XT1-0f-Qpm"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="4f5-tq-GQ6"/>
+                                    <segue destination="Hs9-mC-aKb" kind="show" id="tJg-r2-9WE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a7D-sW-Ctk">
@@ -35,7 +35,7 @@
                                 </state>
                                 <connections>
                                     <action selector="authenticate:" destination="cvE-Sw-zVD" eventType="touchUpInside" id="xTr-cN-jfH"/>
-                                    <segue destination="tAJ-DS-BlC" kind="show" id="sh3-OG-0Lb"/>
+                                    <segue destination="Hs9-mC-aKb" kind="show" id="cv7-AA-tWc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -46,57 +46,34 @@
             </objects>
             <point key="canvasLocation" x="792" y="194"/>
         </scene>
-        <!--Admin View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--View Controller-->
+        <scene sceneID="gU0-cV-fFu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AdminViewController" customModule="SMCBlinkie" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Hs9-mC-aKb" customClass="ViewController" customModule="SMCBlinkie" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="7Hg-ql-jpD"/>
+                        <viewControllerLayoutGuide type="bottom" id="EqI-Q3-LZI"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="hdh-Bk-7jw">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAw-Pc-Jng">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </mapView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="mapView" destination="iAw-Pc-Jng" id="v8d-He-dDb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1616" y="-138"/>
-        </scene>
-        <!--Student View Controller-->
-        <scene sceneID="o0D-5k-2i9">
-            <objects>
-                <viewController id="tAJ-DS-BlC" customClass="StudentViewController" customModule="SMCBlinkie" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3pf-el-qdA"/>
-                        <viewControllerLayoutGuide type="bottom" id="lf8-bV-leO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Euh-Ah-ZfH">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PA7-0v-2pR">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="mxu-aM-Hn8">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="PA7-0v-2pR" id="cH1-uv-Izx"/>
+                        <outlet property="mapView" destination="mxu-aM-Hn8" id="iZD-9T-svr"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TsM-az-gmo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chd-8h-vOx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1619" y="611"/>
+            <point key="canvasLocation" x="1724" y="199"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="tJg-r2-9WE"/>
+    </inferredMetricsTieBreakers>
 </document>

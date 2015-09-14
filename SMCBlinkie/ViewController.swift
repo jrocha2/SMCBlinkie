@@ -21,7 +21,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var isAdmin = false
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
-    var lastStop: String = ""
     var blinkieCalled = false
     
     
@@ -215,19 +214,19 @@ class ViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
         calloutAccessoryControlTapped control: UIControl!) {
             let rootURL = "https://sweltering-fire-588.firebaseio.com/"
+            let nextStop = Firebase(url: rootURL + "nextStop")
             let identifier = titleToId("\(view.annotation.title!)")
             var url = rootURL + identifier
            
             if isAdmin {
-                if lastStop != "" {
-                    let previous = Firebase(url: rootURL + lastStop + "/isNextStop")
-                    previous.setValue(0)
-                }
-                if lastStop != identifier {
-                    let nextIndicator = Firebase(url: url + "/isNextStop")
-                    nextIndicator.setValue(1)
-                    lastStop = identifier
-                }
+                nextStop.observeSingleEventOfType(.Value, withBlock: { snapshot in
+                    var currentNext = "\(snapshot.value)"
+                    if currentNext == view.annotation.title! {
+                        nextStop.setValue("")
+                    } else {
+                        nextStop.setValue(view.annotation.title!)
+                    }
+                })
             } else {
                 url = url + "/girlsWaiting"
                 let numGirls = Firebase(url: url)

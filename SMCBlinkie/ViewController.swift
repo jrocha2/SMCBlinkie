@@ -22,6 +22,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     let regionWidth: CLLocationDistance = 2200
     let regionHeight: CLLocationDistance = 1100
     var lastStop: String = ""
+    var blinkieCalled = false
     
     
     func centerMapOnLocation(location: CLLocation) {
@@ -232,7 +233,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 let numGirls = Firebase(url: url)
                 numGirls.observeSingleEventOfType(.Value, withBlock: { snapshot in
                     var current = "\(snapshot.value)".toInt()
-                    numGirls.setValue(current!+1)
+                    if self.blinkieCalled {
+                        numGirls.setValue(current!-1)
+                        self.blinkieCalled = false
+                    } else {
+                        numGirls.setValue(current!+1)
+                        self.blinkieCalled = true
+                    }
                 })
             }
           

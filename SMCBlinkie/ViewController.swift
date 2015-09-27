@@ -211,27 +211,27 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     // Method called when user presses info button in an annotation callout
-    func mapView(mapView: MKMapView!, annotationView view: MKAnnotationView!,
-        calloutAccessoryControlTapped control: UIControl!) {
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView,
+        calloutAccessoryControlTapped control: UIControl) {
             let rootURL = "https://sweltering-fire-588.firebaseio.com/"
             let nextStop = Firebase(url: rootURL + "nextStop")
-            let identifier = titleToId("\(view.annotation.title!)")
+            let identifier = titleToId("\(view.annotation!.title!)")
             var url = rootURL + identifier
            
             if isAdmin {
                 nextStop.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                    var currentNext = "\(snapshot.value)"
-                    if currentNext == view.annotation.title! {
+                    let currentNext = "\(snapshot.value)"
+                    if currentNext == view.annotation!.title! {
                         nextStop.setValue("")
                     } else {
-                        nextStop.setValue(view.annotation.title!)
+                        nextStop.setValue(view.annotation!.title!)
                     }
                 })
             } else {
                 url = url + "/girlsWaiting"
                 let numGirls = Firebase(url: url)
                 numGirls.observeSingleEventOfType(.Value, withBlock: { snapshot in
-                    var current = "\(snapshot.value)".toInt()
+                    let current = Int("\(snapshot.value)")
                     if self.blinkieCalled {
                         numGirls.setValue(current!-1)
                         self.blinkieCalled = false

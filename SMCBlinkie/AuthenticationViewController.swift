@@ -1,3 +1,4 @@
+
 //
 //  AuthenticationViewController.swift
 //  SMCBlinkie
@@ -22,10 +23,10 @@ class AuthenticationViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "adminSegue") {
-            var svc = segue.destinationViewController as! ViewController;
+            let svc = segue.destinationViewController as! ViewController;
             svc.toPass = true
         } else {
-            var svc = segue.destinationViewController as! ViewController;
+           let svc = segue.destinationViewController as! ViewController;
             svc.toPass = false
         }
     }

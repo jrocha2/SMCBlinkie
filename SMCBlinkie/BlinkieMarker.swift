@@ -11,7 +11,7 @@ import Foundation
 import MapKit
 
 class BlinkieMarker: NSObject, MKAnnotation {
-    let title: String
+    let title: String?
     let coordinate: CLLocationCoordinate2D
     // And any other things later like number of girls at stop?
     

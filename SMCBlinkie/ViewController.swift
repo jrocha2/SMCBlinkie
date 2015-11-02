@@ -95,34 +95,34 @@ class ViewController: UIViewController, MKMapViewDelegate {
 //			bCoords = CLLocationCoordinate2DMake(bLat, bLon)
 //        })
 		
-		// Placemarks for directions for route overlay
-		var directionsRequest = MKDirectionsRequest()
-		var placemarks = [MKMapItem]()
-		//for i in arrCoords {
-		for i in arrStops {
-			var placemark = MKPlacemark(coordinate: i.coordinate, addressDictionary: nil )
-			placemarks.append(MKMapItem(placemark: placemark))
-		}
-		
+//		// Placemarks for directions for route overlay
+//		var directionsRequest = MKDirectionsRequest()
+//		var placemarks = [MKMapItem]()
+//		//for i in arrCoords {
+//		for i in arrStops {
+//			var placemark = MKPlacemark(coordinate: i.coordinate, addressDictionary: nil )
+//			placemarks.append(MKMapItem(placemark: placemark))
+//		}
+//		
 		// Get directions and add overlay
-		directionsRequest.transportType = MKDirectionsTransportType.Automobile
-		for (i, j) in enumerate(placemarks) {
-			if i < (placemarks.count - 1) {
-				directionsRequest.setSource(j)
-				directionsRequest.setDestination(placemarks[i+1])
-			} else if i == (placemarks.count - 1) {
-				directionsRequest.setSource(j)
-				directionsRequest.setDestination(placemarks[0])
-			}
-			var directions = MKDirections(request: directionsRequest)
-			directions.calculateDirectionsWithCompletionHandler {
-				(response: MKDirectionsResponse!, error: NSError!) -> Void in
-				if error == nil {
-					self.myRoute = response.routes[0] as? MKRoute
-					self.mapView.addOverlay(self.myRoute?.polyline)
-				}
-			}
-		}
+//		directionsRequest.transportType = MKDirectionsTransportType.Automobile
+//		for (i, j) in placemarks.enumerate() {
+//			if i < (placemarks.count - 1) {
+//				directionsRequest.setSource(j)
+//				directionsRequest.setDestination(placemarks[i+1])
+//			} else if i == (placemarks.count - 1) {
+//				directionsRequest.setSource(j)
+//				directionsRequest.setDestination(placemarks[0])
+//			}
+//			var directions = MKDirections(request: directionsRequest)
+//			directions.calculateDirectionsWithCompletionHandler {
+//				(response: MKDirectionsResponse!, error: NSError!) -> Void in
+//				if error == nil {
+//					self.myRoute = response.routes[0] as? MKRoute
+//					self.mapView.addOverlay(self.myRoute?.polyline)
+//				}
+//			}
+//		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -143,7 +143,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
 //	}
 	
     // Method called for every annotation added to the map that returns the view for the annotation
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? RouteStop {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -158,7 +158,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -5, y: 5)
-                view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
             return view
         } else if let annotation = annotation as? BlinkieMarker {
@@ -167,7 +167,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as! UIView
+            view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             view.image = UIImage(named: "blinkieMark")
             return view
         }
@@ -176,26 +176,27 @@ class ViewController: UIViewController, MKMapViewDelegate {
 	
 	func drawCircle(location: CLLocation){
 		self.mapView.delegate = self
-		var circle = MKCircle(centerCoordinate: location.coordinate, radius: 5)
+		let circle = MKCircle(centerCoordinate: location.coordinate, radius: 5)
 		self.mapView.addOverlay(circle)
 	}
 	
-	// Overlay renderer
-	func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-		if overlay is MKCircle {
-			var circle = MKCircleRenderer(overlay: overlay)
-			circle.strokeColor = UIColor.redColor()
-			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
-			circle.lineWidth = 1
-			return circle
-		} else if overlay is MKPolyline {
-			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
-			polylineRenderer.strokeColor = UIColor.blueColor()
-			polylineRenderer.lineWidth = 5
-			return polylineRenderer
-		}
-			return nil
-	}
+//	// Overlay renderer
+//	func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+//		if overlay is MKCircle {
+//			var circle = MKCircleRenderer(overlay: overlay)
+//			circle.strokeColor = UIColor.redColor()
+//			circle.fillColor = UIColor(red: 255, green: 0, blue: 0, alpha: 0.1)
+//			circle.lineWidth = 1
+//			return circle
+//		} else if overlay is MKPolyline {
+//			var polylineRenderer = MKPolylineRenderer(overlay: overlay)
+//			polylineRenderer.strokeColor = UIColor.blueColor()
+//			polylineRenderer.lineWidth = 5
+//			return polylineRenderer
+//		}
+//        
+//        return nil
+//	}
     
     // take annotation title and turn it into database relevant child id
     func titleToId(title: String) -> String {

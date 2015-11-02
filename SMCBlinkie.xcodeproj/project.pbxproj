@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8852C0E3C2E40A53AD2BDB1F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C66E63A330FF253708368D4F /* libPods.a */; };
+		0AC8DC9989C22F35AE99305F /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8E0A5265D7F8947EEF4E665 /* Pods.framework */; };
 		AA7D0CAE1BA5093000D54B7A /* BlinkieMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7D0CAD1BA5093000D54B7A /* BlinkieMarker.swift */; };
 		E70A723B1BA3E56D0037B539 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70A723A1BA3E56D0037B539 /* AppDelegate.swift */; };
 		E70A72401BA3E56D0037B539 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70A723E1BA3E56D0037B539 /* Main.storyboard */; };
@@ -33,8 +33,8 @@
 /* Begin PBXFileReference section */
 		00857064D61A9648F48F8CFD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		241FC8273B11E291E58340A2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		A8E0A5265D7F8947EEF4E665 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA7D0CAD1BA5093000D54B7A /* BlinkieMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlinkieMarker.swift; sourceTree = "<group>"; };
-		C66E63A330FF253708368D4F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70A72351BA3E56D0037B539 /* SMCBlinkie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMCBlinkie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E70A72391BA3E56D0037B539 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E70A723A1BA3E56D0037B539 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8852C0E3C2E40A53AD2BDB1F /* libPods.a in Frameworks */,
+				0AC8DC9989C22F35AE99305F /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +72,7 @@
 		5A11D69BFD75844DA64B467D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C66E63A330FF253708368D4F /* libPods.a */,
+				A8E0A5265D7F8947EEF4E665 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,6 +160,7 @@
 				E70A72321BA3E56D0037B539 /* Frameworks */,
 				E70A72331BA3E56D0037B539 /* Resources */,
 				54F5823B8935C8B363E9C76A /* Copy Pods Resources */,
+				A4D9ECDF6998A80C4AE41975 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,7 +196,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "John Rocha and Jenna Wilson";
 				TargetAttributes = {
 					E70A72341BA3E56D0037B539 = {
@@ -261,6 +262,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4D9ECDF6998A80C4AE41975 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F0DF7C4B7541880D3A1FD61F /* Check Pods Manifest.lock */ = {
@@ -353,6 +369,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -424,6 +441,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SMCBlinkie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jrochajwilson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -438,6 +456,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SMCBlinkie/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jrochajwilson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -457,6 +476,7 @@
 				);
 				INFOPLIST_FILE = SMCBlinkieTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jrochajwilson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SMCBlinkie.app/SMCBlinkie";
 			};
@@ -472,6 +492,7 @@
 				);
 				INFOPLIST_FILE = SMCBlinkieTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jrochajwilson.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SMCBlinkie.app/SMCBlinkie";
 			};

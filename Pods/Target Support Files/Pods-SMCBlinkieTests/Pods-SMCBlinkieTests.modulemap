@@ -1,0 +1,6 @@
+framework module Pods_SMCBlinkieTests {
+  umbrella header "Pods-SMCBlinkieTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

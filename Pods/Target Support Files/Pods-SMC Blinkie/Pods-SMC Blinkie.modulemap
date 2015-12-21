@@ -1,0 +1,6 @@
+framework module Pods_SMC_Blinkie {
+  umbrella header "Pods-SMC Blinkie-umbrella.h"
+
+  export *
+  module * { export * }
+}

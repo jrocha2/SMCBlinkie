@@ -7,29 +7,32 @@
 //
 
 import UIKit
+import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
 
+    @IBOutlet weak var mapView: MKMapView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        mapView.delegate = self
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        
+        // Center map whenever the map appears
+        let centerLocation = CLLocation(latitude: 41.703002, longitude: -86.249173)
+        centerMapOnLocation(centerLocation, width: 3700, height: 1100)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Centers the map on a given coordinate with provided map width and height
+    func centerMapOnLocation(location: CLLocation, width: CLLocationDistance, height: CLLocationDistance) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, width, height)
+        mapView.setRegion(coordinateRegion, animated: true)
+        
     }
-    */
 
 }

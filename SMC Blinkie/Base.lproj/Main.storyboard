@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Authentication View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AuthenticationViewController" customModule="SMC_Blinkie" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +16,57 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvB-qq-iU9">
+                                <rect key="frame" x="278" y="215" width="44" height="30"/>
+                                <state key="normal" title="Admin"/>
+                                <connections>
+                                    <action selector="adminButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="2P9-0Y-rhC"/>
+                                    <segue destination="Gbx-B7-DgN" kind="show" id="jRC-hm-EnY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9E-Du-2q2">
+                                <rect key="frame" x="273" y="285" width="55" height="30"/>
+                                <state key="normal" title="Student"/>
+                                <connections>
+                                    <action selector="studentButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="1e6-M5-dTt"/>
+                                    <segue destination="Gbx-B7-DgN" kind="show" id="eph-qa-Q8x"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="v9E-Du-2q2" firstAttribute="top" secondItem="bvB-qq-iU9" secondAttribute="bottom" constant="40" id="OvE-My-WNa"/>
+                            <constraint firstItem="v9E-Du-2q2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bXL-28-zLs"/>
+                            <constraint firstItem="bvB-qq-iU9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dhV-Tr-ob4"/>
+                            <constraint firstItem="bvB-qq-iU9" firstAttribute="centerX" secondItem="v9E-Du-2q2" secondAttribute="centerX" id="xCG-Qv-JvA"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="122" y="302"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="tpI-gJ-EB9">
+            <objects>
+                <viewController id="Gbx-B7-DgN" customClass="MapViewController" customModule="SMC_Blinkie" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Wyd-dh-xqE"/>
+                        <viewControllerLayoutGuide type="bottom" id="bzG-iF-2dz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8oA-Fy-MQg">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WzA-o8-2an" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="884" y="302"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="jRC-hm-EnY"/>
+    </inferredMetricsTieBreakers>
 </document>

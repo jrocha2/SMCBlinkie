@@ -10,6 +10,7 @@
 		E7561DED1C2B45AE00D542A0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7561DEC1C2B45AE00D542A0 /* AppData.swift */; };
 		E7561DEF1C2B472400D542A0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7561DEE1C2B472400D542A0 /* MapViewController.swift */; };
 		E79DFAD71C29078F0066ED5F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */; };
+		E7B253531C3231B9007DAABD /* RouteStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B253521C3231B9007DAABD /* RouteStop.swift */; };
 		E7C6889B1C277C8B00BFD0D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6889A1C277C8B00BFD0D0 /* AppDelegate.swift */; };
 		E7C688A01C277C8B00BFD0D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7C6889E1C277C8B00BFD0D0 /* Main.storyboard */; };
 		E7C688A21C277C8B00BFD0D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7C688A11C277C8B00BFD0D0 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		E7561DEC1C2B45AE00D542A0 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		E7561DEE1C2B472400D542A0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		E7B253521C3231B9007DAABD /* RouteStop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteStop.swift; sourceTree = "<group>"; };
 		E7C688971C277C8B00BFD0D0 /* SMC Blinkie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMC Blinkie.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C6889A1C277C8B00BFD0D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7C6889F1C277C8B00BFD0D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				E7561DEC1C2B45AE00D542A0 /* AppData.swift */,
 				E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */,
 				E7561DEE1C2B472400D542A0 /* MapViewController.swift */,
+				E7B253521C3231B9007DAABD /* RouteStop.swift */,
 				E7C6889E1C277C8B00BFD0D0 /* Main.storyboard */,
 				E7C688A11C277C8B00BFD0D0 /* Assets.xcassets */,
 				E7C688A31C277C8B00BFD0D0 /* LaunchScreen.storyboard */,
@@ -218,6 +221,7 @@
 			files = (
 				E79DFAD71C29078F0066ED5F /* AuthenticationViewController.swift in Sources */,
 				E7C6889B1C277C8B00BFD0D0 /* AppDelegate.swift in Sources */,
+				E7B253531C3231B9007DAABD /* RouteStop.swift in Sources */,
 				E7561DED1C2B45AE00D542A0 /* AppData.swift in Sources */,
 				E7561DEF1C2B472400D542A0 /* MapViewController.swift in Sources */,
 			);

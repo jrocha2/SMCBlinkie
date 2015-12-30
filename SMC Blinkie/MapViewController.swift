@@ -12,8 +12,12 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var pinBarButton: UIBarButtonItem!
     
     let locationManager = CLLocationManager()
+    let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
+    var myPin = MKPointAnnotation()
+    var pinPlaced = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,5 +49,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         mapView.setRegion(coordinateRegion, animated: true)
         
     }
+    
+    
+    @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
+        if !pinPlaced {
+            myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+            mapView.addAnnotation(myPin)
+            pinPlaced = true
+            pinBarButton.title = "Unpin"
+            
+        } else {
+            mapView.removeAnnotation(myPin)
+            pinPlaced = false
+            pinBarButton.title = "Pin"
+        }
+        
+    }
+    
     
 }

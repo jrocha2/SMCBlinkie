@@ -15,5 +15,5 @@ class AppData {
     
     var isAdmin = false
     
-    var currentPins = [CLLocationCoordinate2D]()
+    var currentPins = [MKPointAnnotation]()
 }

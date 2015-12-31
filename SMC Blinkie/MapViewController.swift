@@ -18,13 +18,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
     var myPin = MKPointAnnotation()
     var pinPlaced = false
+    var adminPins = [MKPointAnnotation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         
+        // Watch Database as admin
         if AppData.sharedInstance.isAdmin {
             databaseManager.observePins()
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMap", name: currentPinsUpdateNotification, object: nil)
         }
     }
 
@@ -54,22 +57,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    
+    // Students press this to place their pin and remove it
     @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
-        if !pinPlaced {
-            myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
-            mapView.addAnnotation(myPin)
-            databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
-            pinPlaced = true
-            pinBarButton.title = "Unpin"
-            
-        } else {
-            mapView.removeAnnotation(myPin)
-            databaseManager.removePinFromDatabase()
-            pinPlaced = false
-            pinBarButton.title = "Pin"
+        if !AppData.sharedInstance.isAdmin {
+            if !pinPlaced {
+                myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+                mapView.addAnnotation(myPin)
+                databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
+                pinPlaced = true
+                pinBarButton.title = "Unpin"
+            } else {
+                mapView.removeAnnotation(myPin)
+                databaseManager.removePinFromDatabase()
+                pinPlaced = false
+                pinBarButton.title = "Pin"
+            }
         }
-        
+    }
+    
+    // Removes old annotations and adds updated ones
+    func updateMap() {
+        if AppData.sharedInstance.isAdmin {
+            mapView.removeAnnotations(adminPins)
+            mapView.addAnnotations(AppData.sharedInstance.currentPins)
+            adminPins = AppData.sharedInstance.currentPins
+        }
     }
     
     

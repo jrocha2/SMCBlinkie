@@ -22,6 +22,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        
+        if AppData.sharedInstance.isAdmin {
+            databaseManager.observePins()
+        }
     }
 
     override func viewWillAppear(animated: Bool) {

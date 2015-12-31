@@ -13,6 +13,7 @@ import MapKit
 class AppData {
     static let sharedInstance = AppData()
     
-    var isAdmin:Bool!
+    var isAdmin = false
     
+    var currentPins = [CLLocationCoordinate2D]()
 }

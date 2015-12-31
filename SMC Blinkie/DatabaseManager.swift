@@ -19,7 +19,7 @@ class DatabaseManager {
     init (root: String) {
         self.rootStr = root
         rootRef = Firebase(url: rootStr)
-        deviceRef = rootRef.childByAppendingPath(UIDevice.currentDevice().identifierForVendor!.UUIDString)
+        deviceRef = rootRef.childByAppendingPath("currentPins").childByAppendingPath(UIDevice.currentDevice().identifierForVendor!.UUIDString)
     }
     
     func addPinToDatabase(location: CLLocationCoordinate2D) {
@@ -29,5 +29,18 @@ class DatabaseManager {
     
     func removePinFromDatabase() {
         deviceRef.removeValue()
+    }
+    
+    func observePins() {
+        rootRef.childByAppendingPath("currentPins").observeEventType(.Value, withBlock: { snapshot in
+            if snapshot.exists() {
+                for child in snapshot.children {
+                    let latitude = child.childSnapshotForPath("latitude").value as! CLLocationDegrees
+                    let longitude = child.childSnapshotForPath("longitude").value as! CLLocationDegrees
+                    print(latitude)
+                    print(longitude)
+                }
+            }
+        })
     }
 }

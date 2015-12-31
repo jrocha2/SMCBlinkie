@@ -55,11 +55,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if !pinPlaced {
             myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
             mapView.addAnnotation(myPin)
+            databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
             pinPlaced = true
             pinBarButton.title = "Unpin"
             
         } else {
             mapView.removeAnnotation(myPin)
+            databaseManager.removePinFromDatabase()
             pinPlaced = false
             pinBarButton.title = "Pin"
         }

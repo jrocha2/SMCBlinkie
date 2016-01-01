@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E7561DED1C2B45AE00D542A0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7561DEC1C2B45AE00D542A0 /* AppData.swift */; };
 		E7561DEF1C2B472400D542A0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7561DEE1C2B472400D542A0 /* MapViewController.swift */; };
+		E767E1451C361F2F0036F5B3 /* PassengerPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767E1441C361F2F0036F5B3 /* PassengerPin.swift */; };
 		E79DFAD71C29078F0066ED5F /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */; };
 		E7B253551C33BF28007DAABD /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B253541C33BF28007DAABD /* DatabaseManager.swift */; };
 		E7C6889B1C277C8B00BFD0D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C6889A1C277C8B00BFD0D0 /* AppDelegate.swift */; };
@@ -24,6 +25,7 @@
 		87FA1DB8DFEDEBB3E9F6FD5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E7561DEC1C2B45AE00D542A0 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		E7561DEE1C2B472400D542A0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E767E1441C361F2F0036F5B3 /* PassengerPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerPin.swift; sourceTree = "<group>"; };
 		E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		E7B253541C33BF28007DAABD /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		E7C688971C277C8B00BFD0D0 /* SMC Blinkie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SMC Blinkie.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +90,7 @@
 				E7B253541C33BF28007DAABD /* DatabaseManager.swift */,
 				E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */,
 				E7561DEE1C2B472400D542A0 /* MapViewController.swift */,
+				E767E1441C361F2F0036F5B3 /* PassengerPin.swift */,
 				E7C6889E1C277C8B00BFD0D0 /* Main.storyboard */,
 				E7C688A11C277C8B00BFD0D0 /* Assets.xcassets */,
 				E7C688A31C277C8B00BFD0D0 /* LaunchScreen.storyboard */,
@@ -224,6 +227,7 @@
 				E7C6889B1C277C8B00BFD0D0 /* AppDelegate.swift in Sources */,
 				E7B253551C33BF28007DAABD /* DatabaseManager.swift in Sources */,
 				E7561DED1C2B45AE00D542A0 /* AppData.swift in Sources */,
+				E767E1451C361F2F0036F5B3 /* PassengerPin.swift in Sources */,
 				E7561DEF1C2B472400D542A0 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

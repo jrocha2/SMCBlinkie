@@ -15,5 +15,5 @@ class AppData {
     
     var isAdmin = false
     
-    var currentPins = [MKPointAnnotation]()
+    var currentPins = [PassengerPin]()
 }

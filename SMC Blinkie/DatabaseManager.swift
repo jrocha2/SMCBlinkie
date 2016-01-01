@@ -41,7 +41,7 @@ class DatabaseManager {
             var pinsComplete = true
             
             if snapshot.exists() {
-                var newPins = [MKPointAnnotation]()
+                var newPins = [PassengerPin]()
                 for child in snapshot.children {
                     if !child.childSnapshotForPath("latitude").exists() || !child.childSnapshotForPath("longitude").exists() {
                         pinsComplete = false
@@ -49,10 +49,9 @@ class DatabaseManager {
                     } else {
                         let latitude = child.childSnapshotForPath("latitude").value as! CLLocationDegrees
                         let longitude = child.childSnapshotForPath("longitude").value as! CLLocationDegrees
+                        let deviceID = child.key!! as String
                         
-                        let annotation = MKPointAnnotation()
-                        annotation.coordinate.latitude = latitude
-                        annotation.coordinate.longitude = longitude
+                        let annotation = PassengerPin(title: "Tap to Remove", coordinate: CLLocationCoordinate2DMake(latitude, longitude), deviceID: deviceID)
                         newPins.append(annotation)
                     }
                 }

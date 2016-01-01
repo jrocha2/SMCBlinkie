@@ -18,7 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
     var myPin = MKPointAnnotation()
     var pinPlaced = false
-    var adminPins = [MKPointAnnotation]()
+    var adminPins = [PassengerPin]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             databaseManager.observePins()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMap", name: currentPinsUpdateNotification, object: nil)
         }
+        
+        myPin.title = "My Location"
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -82,6 +84,35 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.addAnnotations(AppData.sharedInstance.currentPins)
             adminPins = AppData.sharedInstance.currentPins
         }
+    }
+    
+    // Is called whenever mapView.addAnnotation(s) is called
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotation = annotation as? MKPointAnnotation {
+            let identifier = "pin"
+            var view: MKPinAnnotationView
+            
+            // If some annotation views offscreen, dequeues to allow for reuse
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                as? MKPinAnnotationView {
+                    dequeuedView.annotation = annotation
+                    view = dequeuedView
+            } else {
+                // Else it create new annotation with all relevant properties
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                if annotation.title == "My Location" {
+                    view.canShowCallout = false
+                    view.pinTintColor = MKPinAnnotationView.greenPinColor()
+                } else {
+                    view.canShowCallout = true
+                    view.calloutOffset = CGPoint(x: -5, y: 5)
+                    view.pinTintColor = MKPinAnnotationView.redPinColor()
+                }
+            }
+            return view
+        }
+        
+        return nil
     }
     
     

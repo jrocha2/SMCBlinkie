@@ -26,8 +26,8 @@ class DatabaseManager {
     
     // Used by students to add their device and location to database
     func addPinToDatabase(location: CLLocationCoordinate2D) {
-        let userLocation = ["currentPins/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)/latitude" : location.latitude, "currentPins/\(UIDevice.currentDevice().identifierForVendor!.UUIDString)/longitude" : location.longitude]
-        deviceRef.updateChildValues(userLocation)
+        deviceRef.childByAppendingPath("latitude").setValue(location.latitude)
+        deviceRef.childByAppendingPath("longitude").setValue(location.longitude)
     }
     
     // Removes the device's database entry

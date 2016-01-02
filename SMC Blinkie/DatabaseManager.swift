@@ -30,9 +30,10 @@ class DatabaseManager {
         deviceRef.childByAppendingPath("longitude").setValue(location.longitude)
     }
     
-    // Removes the device's database entry
-    func removePinFromDatabase() {
-        deviceRef.removeValue()
+    // Removes the supplied device's entry from the database
+    func removePinFromDatabase(deviceID: String) {
+        let ref = rootRef.childByAppendingPath("currentPins").childByAppendingPath(deviceID)
+        ref.removeValue()
     }
     
     // Creates observer on the database updating local pins and generating notification to update mapview accordingly

@@ -70,7 +70,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 pinBarButton.title = "Unpin"
             } else {
                 mapView.removeAnnotation(myPin)
-                databaseManager.removePinFromDatabase()
+                databaseManager.removePinFromDatabase(UIDevice.currentDevice().identifierForVendor!.UUIDString)
                 pinPlaced = false
                 pinBarButton.title = "Pin"
             }

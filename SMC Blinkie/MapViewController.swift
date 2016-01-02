@@ -29,8 +29,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             databaseManager.observePins()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMap", name: currentPinsUpdateNotification, object: nil)
         }
-        
-        myPin.title = "My Location"
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -42,7 +40,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         centerMapOnLocation(centerLocation, width: 3700, height: 1100)
     }
     
-    // checks that user has authorized location tracking
+    // Checks that user has authorized location tracking
     func checkLocationAuthorizationStatus() {
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
@@ -77,6 +75,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    // Temporarily moves map to show user's current location
     @IBAction func leftButtonPressed(sender: AnyObject) {
         centerMapOnLocation(CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude), width: 3000, height: 750)
     }
@@ -92,8 +91,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     // Is called whenever mapView.addAnnotation(s) is called
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotation = annotation as? MKPointAnnotation {
-            let identifier = "pin"
+        
+        // Execute the following if the pin of a passenger
+        if let annotation = annotation as? PassengerPin {
+            let identifier = "passengerPin"
             var view: MKPinAnnotationView
             
             // If some annotation views offscreen, dequeues to allow for reuse
@@ -102,22 +103,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     dequeuedView.annotation = annotation
                     view = dequeuedView
             } else {
-                // Else it create new annotation with all relevant properties
+                // Else it creates new annotation with all relevant properties
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                if annotation.title == "My Location" {
-                    view.canShowCallout = false
-                    view.pinTintColor = MKPinAnnotationView.greenPinColor()
-                } else {
-                    view.canShowCallout = true
-                    view.calloutOffset = CGPoint(x: -5, y: 5)
-                    view.pinTintColor = MKPinAnnotationView.redPinColor()
-                }
+                view.canShowCallout = true
+                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+                view.pinTintColor = MKPinAnnotationView.redPinColor()
             }
+            return view
+            
+        // Execute the following if a point placed by the user
+        } else if let annotation = annotation as? MKPointAnnotation {
+            let identifier = "myPin"
+            let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view.canShowCallout = false
+            view.pinTintColor = MKPinAnnotationView.greenPinColor()
             return view
         }
         
         return nil
     }
     
+    // Called whenever a pin's callout is selected; for admin, this callout says "Tap to Remove"
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let annotation = view.annotation as! PassengerPin
+        databaseManager.removePinFromDatabase(annotation.deviceID!)
+    }
     
 }

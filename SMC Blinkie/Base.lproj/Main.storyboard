@@ -69,6 +69,9 @@
                                     <navigationItem title="Blinkie Locator" id="388-eY-z7B">
                                         <barButtonItem key="leftBarButtonItem" systemItem="bookmarks" id="lQh-j0-wcx">
                                             <color key="tintColor" red="0.82174410990000002" green="0.35047647430000001" blue="0.13085232569999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="leftButtonPressed:" destination="Gbx-B7-DgN" id="XZE-GR-DPX"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Pin" id="DYs-4f-bH7">
                                             <color key="tintColor" red="0.82174410990000002" green="0.35047647426600176" blue="0.13085232571740302" alpha="1" colorSpace="calibratedRGB"/>

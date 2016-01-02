@@ -77,6 +77,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBAction func leftButtonPressed(sender: AnyObject) {
+        centerMapOnLocation(CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude), width: 3000, height: 750)
+    }
+    
     // Removes old annotations and adds updated ones
     func updateMap() {
         if AppData.sharedInstance.isAdmin {

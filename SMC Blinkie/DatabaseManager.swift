@@ -26,8 +26,7 @@ class DatabaseManager {
     
     // Used by students to add their device and location to database
     func addPinToDatabase(location: CLLocationCoordinate2D) {
-        deviceRef.childByAppendingPath("latitude").setValue(location.latitude)
-        deviceRef.childByAppendingPath("longitude").setValue(location.longitude)
+        deviceRef.childByAppendingPath("coordinate").setValue([location.latitude, location.longitude])
     }
     
     // Removes the supplied device's entry from the database
@@ -39,28 +38,22 @@ class DatabaseManager {
     // Creates observer on the database updating local pins and generating notification to update mapview accordingly
     func observePins() {
         rootRef.childByAppendingPath("currentPins").observeEventType(.Value, withBlock: { snapshot in
-            var pinsComplete = true
             
             if snapshot.exists() {
                 var newPins = [PassengerPin]()
                 for child in snapshot.children {
-                    if !child.childSnapshotForPath("latitude").exists() || !child.childSnapshotForPath("longitude").exists() {
-                        pinsComplete = false
-                        break
-                    } else {
-                        let latitude = child.childSnapshotForPath("latitude").value as! CLLocationDegrees
-                        let longitude = child.childSnapshotForPath("longitude").value as! CLLocationDegrees
-                        let deviceID = child.key!! as String
-                        
-                        let annotation = PassengerPin(title: "Tap to Remove", coordinate: CLLocationCoordinate2DMake(latitude, longitude), deviceID: deviceID)
-                        newPins.append(annotation)
-                    }
+                    let coordArray = child.childSnapshotForPath("coordinate").value as! [CLLocationDegrees]
+                    let latitude = coordArray[0]
+                    let longitude = coordArray[1]
+                    let deviceID = child.key!! as String
+                    
+                    let annotation = PassengerPin(title: "Tap to Remove", coordinate: CLLocationCoordinate2DMake(latitude, longitude), deviceID: deviceID)
+                    newPins.append(annotation)
+                    
                 }
+                AppData.sharedInstance.currentPins = newPins
+                NSNotificationCenter.defaultCenter().postNotificationName(currentPinsUpdateNotification, object: self)
                 
-                if pinsComplete {
-                    AppData.sharedInstance.currentPins = newPins
-                    NSNotificationCenter.defaultCenter().postNotificationName(currentPinsUpdateNotification, object: self)
-                }
             } else {
                 AppData.sharedInstance.currentPins.removeAll()
                 NSNotificationCenter.defaultCenter().postNotificationName(currentPinsUpdateNotification, object: self)
@@ -71,7 +64,6 @@ class DatabaseManager {
     // Updates blinkie location to have the given coordinates
     func setBlinkieLocation(location: CLLocationCoordinate2D) {
         let blinkieRef = rootRef.childByAppendingPath("blinkieLocation")
-        blinkieRef.childByAppendingPath("latitude").setValue(location.latitude)
-        blinkieRef.childByAppendingPath("longitude").setValue(location.longitude)
+        blinkieRef.setValue([location.latitude, location.longitude])
     }
 }

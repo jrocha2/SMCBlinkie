@@ -16,7 +16,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     let locationManager = CLLocationManager()
     let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
-    var timer = NSTimer()
     var myPin = MKPointAnnotation()
     var pinPlaced = false
     var adminPins = [PassengerPin]()
@@ -32,8 +31,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMap", name: currentPinsUpdateNotification, object: nil)
             myLastLocation = mapView.userLocation.coordinate
             databaseManager.setBlinkieLocation(myLastLocation)
+            
             // This timer updates the Blinkie's coordinates in the database every 10 seconds as of now
-            timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateBlinkieLocation", userInfo: nil, repeats: true)
+            let _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateBlinkieLocation", userInfo: nil, repeats: true)
         }
     }
 

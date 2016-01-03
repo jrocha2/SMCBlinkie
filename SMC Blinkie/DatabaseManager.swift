@@ -67,4 +67,11 @@ class DatabaseManager {
             }
         })
     }
+    
+    // Updates blinkie location to have the given coordinates
+    func setBlinkieLocation(location: CLLocationCoordinate2D) {
+        let blinkieRef = rootRef.childByAppendingPath("blinkieLocation")
+        blinkieRef.childByAppendingPath("latitude").setValue(location.latitude)
+        blinkieRef.childByAppendingPath("longitude").setValue(location.longitude)
+    }
 }

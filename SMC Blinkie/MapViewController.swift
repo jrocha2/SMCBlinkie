@@ -16,9 +16,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     let locationManager = CLLocationManager()
     let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
+    var timer = NSTimer()
     var myPin = MKPointAnnotation()
     var pinPlaced = false
     var adminPins = [PassengerPin]()
+    var myLastLocation = CLLocationCoordinate2D()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if AppData.sharedInstance.isAdmin {
             databaseManager.observePins()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMap", name: currentPinsUpdateNotification, object: nil)
+            myLastLocation = mapView.userLocation.coordinate
+            databaseManager.setBlinkieLocation(myLastLocation)
+            // This timer updates the Blinkie's coordinates in the database every 10 seconds as of now
+            timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateBlinkieLocation", userInfo: nil, repeats: true)
         }
     }
 
@@ -128,6 +134,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let annotation = view.annotation as! PassengerPin
         databaseManager.removePinFromDatabase(annotation.deviceID!)
+    }
+    
+    // If the blinkie has moved, updates it's location in the database
+    func updateBlinkieLocation() {
+        if mapView.userLocation.coordinate.latitude != myLastLocation.latitude && mapView.userLocation.coordinate.longitude != myLastLocation.longitude {
+            databaseManager.setBlinkieLocation(mapView.userLocation.coordinate)
+            myLastLocation = mapView.userLocation.coordinate
+        }
     }
     
 }

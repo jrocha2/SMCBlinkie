@@ -25,17 +25,37 @@ class DatabaseManager {
         deviceRef = rootRef.childByAppendingPath("currentPins").childByAppendingPath(UIDevice.currentDevice().identifierForVendor!.UUIDString)
     }
     
-    // Used by students to add their device and location to database
-    func addPinToDatabase(location: CLLocationCoordinate2D) {
-        deviceRef.childByAppendingPath("coordinate").setValue([location.latitude, location.longitude])
-    }
-    
     // Removes the supplied device's entry from the database
     func removePinFromDatabase(deviceID: String) {
         let ref = rootRef.childByAppendingPath("currentPins").childByAppendingPath(deviceID)
         ref.removeValue()
     }
     
+    // MARK: Student Specific Functions
+    // Used by students to add their device and location to database
+    func addPinToDatabase(location: CLLocationCoordinate2D) {
+        deviceRef.childByAppendingPath("coordinate").setValue([location.latitude, location.longitude])
+    }
+    
+    // Creates observer on the database updating the blinkie's location and generating notification to update mapview
+    func observeBlinkieLocation() {
+        rootRef.childByAppendingPath("blinkieLocation").observeEventType(.Value, withBlock: { snapshot in
+            
+            if snapshot.exists() {
+                let coordArray = snapshot.value as! [CLLocationDegrees]
+                let latitude = coordArray[0]
+                let longitude = coordArray[1]
+                
+                AppData.sharedInstance.blinkieLocation = CLLocationCoordinate2DMake(latitude, longitude)
+                NSNotificationCenter.defaultCenter().postNotificationName(blinkieUpdateNotification, object: self)
+            } else {
+                AppData.sharedInstance.blinkieLocation = CLLocationCoordinate2DMake(0, 0)
+                NSNotificationCenter.defaultCenter().postNotificationName(blinkieUpdateNotification, object: self)
+            }
+        })
+    }
+    
+    // MARK: Admin Specific Functions
     // Creates observer on the database updating local pins and generating notification to update mapview accordingly
     func observePins() {
         rootRef.childByAppendingPath("currentPins").observeEventType(.Value, withBlock: { snapshot in
@@ -66,23 +86,5 @@ class DatabaseManager {
     func setBlinkieLocation(location: CLLocationCoordinate2D) {
         let blinkieRef = rootRef.childByAppendingPath("blinkieLocation")
         blinkieRef.setValue([location.latitude, location.longitude])
-    }
-    
-    // Creates observer on the database updating the blinkie's location and generating notification to update mapview
-    func observeBlinkieLocation() {
-        rootRef.childByAppendingPath("blinkieLocation").observeEventType(.Value, withBlock: { snapshot in
-            
-            if snapshot.exists() {
-                let coordArray = snapshot.value as! [CLLocationDegrees]
-                let latitude = coordArray[0]
-                let longitude = coordArray[1]
-                
-                AppData.sharedInstance.blinkieLocation = CLLocationCoordinate2DMake(latitude, longitude)
-                NSNotificationCenter.defaultCenter().postNotificationName(blinkieUpdateNotification, object: self)
-            } else {
-                AppData.sharedInstance.blinkieLocation = CLLocationCoordinate2DMake(0, 0)
-                NSNotificationCenter.defaultCenter().postNotificationName(blinkieUpdateNotification, object: self)
-            }
-        })
     }
 }

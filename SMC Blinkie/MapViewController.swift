@@ -68,6 +68,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     // Students press this to place their pin and remove it
+    // Admins press this button to ...
     @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
         if !AppData.sharedInstance.isAdmin {
             if !pinPlaced {
@@ -88,15 +89,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // Temporarily moves map to show user's current location
     @IBAction func leftButtonPressed(sender: AnyObject) {
         centerMapOnLocation(CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude), width: 3000, height: 750)
-    }
-    
-    // Removes old student pins and adds updated ones
-    func updateStudentPins() {
-        if AppData.sharedInstance.isAdmin {
-            mapView.removeAnnotations(adminPins)
-            mapView.addAnnotations(AppData.sharedInstance.currentPins)
-            adminPins = AppData.sharedInstance.currentPins
-        }
     }
     
     // Is called whenever mapView.addAnnotation(s) is called
@@ -122,7 +114,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
             return view
             
-        // Execute the following if a point placed by the user
+            // Execute the following if a point placed by the user
         } else if let annotation = annotation as? MKPointAnnotation {
             if annotation.title == "Blinkie" {
                 let identifier = "blinkieMarker"
@@ -142,21 +134,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return nil
     }
     
-    // Called whenever a pin's callout is selected; for admin, this callout says "Tap to Remove"
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let annotation = view.annotation as! PassengerPin
-        databaseManager.removePinFromDatabase(annotation.deviceID!)
-    }
-    
-    // If the blinkie has moved, updates it's location in the database
-    func updateBlinkieLocation() {
-        if mapView.userLocation.coordinate.latitude != myLastLocation.latitude && mapView.userLocation.coordinate.longitude != myLastLocation.longitude {
-            databaseManager.setBlinkieLocation(mapView.userLocation.coordinate)
-            myLastLocation = mapView.userLocation.coordinate
-        }
-    }
-    
-    // Moves the blinkie marker on a student's view of the map 
+    // MARK: Student Specific Functions
+    // Moves the blinkie marker on a student's view of the map
     func updateBlinkieMarker() {
         let blinkieLocation = AppData.sharedInstance.blinkieLocation
         
@@ -178,5 +157,31 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             mapView.addAnnotation(blinkieMarker)
         }
     }
+    
+    // MARK: Admin Specific Functions
+    // Removes old student pins and adds updated ones
+    func updateStudentPins() {
+        if AppData.sharedInstance.isAdmin {
+            mapView.removeAnnotations(adminPins)
+            mapView.addAnnotations(AppData.sharedInstance.currentPins)
+            adminPins = AppData.sharedInstance.currentPins
+        }
+    }
+    
+    // Called whenever a pin's callout is selected; for admin, this callout says "Tap to Remove"
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let annotation = view.annotation as! PassengerPin
+        databaseManager.removePinFromDatabase(annotation.deviceID!)
+    }
+    
+    // If the blinkie has moved, updates it's location in the database
+    func updateBlinkieLocation() {
+        if mapView.userLocation.coordinate.latitude != myLastLocation.latitude && mapView.userLocation.coordinate.longitude != myLastLocation.longitude {
+            databaseManager.setBlinkieLocation(mapView.userLocation.coordinate)
+            myLastLocation = mapView.userLocation.coordinate
+        }
+    }
+    
+    
     
 }

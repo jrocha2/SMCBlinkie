@@ -17,6 +17,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let locationManager = CLLocationManager()
     let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
     var myPin = MKPointAnnotation()
+    var blinkieMarker = MKPointAnnotation()
     var pinPlaced = false
     var adminPins = [PassengerPin]()
     var myLastLocation = CLLocationCoordinate2D()
@@ -24,16 +25,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
-        
+    
         // Watch Database as admin
         if AppData.sharedInstance.isAdmin {
             databaseManager.observePins()
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateMap", name: currentPinsUpdateNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateStudentPins", name: currentPinsUpdateNotification, object: nil)
             myLastLocation = mapView.userLocation.coordinate
             databaseManager.setBlinkieLocation(myLastLocation)
             
             // This timer updates the Blinkie's coordinates in the database every 10 seconds as of now
             let _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateBlinkieLocation", userInfo: nil, repeats: true)
+        } else {
+            databaseManager.observeBlinkieLocation()
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateBlinkieMarker", name: blinkieUpdateNotification, object: nil)
         }
     }
 
@@ -86,8 +90,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         centerMapOnLocation(CLLocation(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude), width: 3000, height: 750)
     }
     
-    // Removes old annotations and adds updated ones
-    func updateMap() {
+    // Removes old student pins and adds updated ones
+    func updateStudentPins() {
         if AppData.sharedInstance.isAdmin {
             mapView.removeAnnotations(adminPins)
             mapView.addAnnotations(AppData.sharedInstance.currentPins)
@@ -120,11 +124,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
         // Execute the following if a point placed by the user
         } else if let annotation = annotation as? MKPointAnnotation {
-            let identifier = "myPin"
-            let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view.canShowCallout = false
-            view.pinTintColor = MKPinAnnotationView.greenPinColor()
-            return view
+            if annotation.title == "Blinkie" {
+                let identifier = "blinkieMarker"
+                let view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.image = UIImage(named: "blinkieicon")
+                return view
+            } else {
+                let identifier = "myPin"
+                let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = false
+                view.pinTintColor = MKPinAnnotationView.greenPinColor()
+                return view
+            }
         }
         
         return nil
@@ -141,6 +153,29 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if mapView.userLocation.coordinate.latitude != myLastLocation.latitude && mapView.userLocation.coordinate.longitude != myLastLocation.longitude {
             databaseManager.setBlinkieLocation(mapView.userLocation.coordinate)
             myLastLocation = mapView.userLocation.coordinate
+        }
+    }
+    
+    // Moves the blinkie marker on a student's view of the map 
+    func updateBlinkieMarker() {
+        let blinkieLocation = AppData.sharedInstance.blinkieLocation
+        
+        if blinkieLocation.latitude == 0 && blinkieLocation.longitude == 0 {
+            let alert = UIAlertController(title: "Blinkie Not Found",
+                message: "Either the Blinkie isn't running or is not broadcasting its location at this time",
+                preferredStyle: .Alert)
+            let confirmAction = UIAlertAction(title: "Ok",
+                style: .Default) { (action: UIAlertAction) -> Void in
+            }
+            
+            alert.addAction(confirmAction)
+            presentViewController(alert, animated: true, completion: nil)
+            
+        } else {
+            mapView.removeAnnotation(blinkieMarker)
+            blinkieMarker.title = "Blinkie"
+            blinkieMarker.coordinate = AppData.sharedInstance.blinkieLocation
+            mapView.addAnnotation(blinkieMarker)
         }
     }
     

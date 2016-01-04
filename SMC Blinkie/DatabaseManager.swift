@@ -11,6 +11,7 @@ import Firebase
 import MapKit
 
 let currentPinsUpdateNotification = "com.smcblinkie.currentPinsUpdatedNotification"
+let blinkieUpdateNotification = "com.smcblinkie.blinkieUpdateNotification"
 
 class DatabaseManager {
     
@@ -65,5 +66,23 @@ class DatabaseManager {
     func setBlinkieLocation(location: CLLocationCoordinate2D) {
         let blinkieRef = rootRef.childByAppendingPath("blinkieLocation")
         blinkieRef.setValue([location.latitude, location.longitude])
+    }
+    
+    // Creates observer on the database updating the blinkie's location and generating notification to update mapview
+    func observeBlinkieLocation() {
+        rootRef.childByAppendingPath("blinkieLocation").observeEventType(.Value, withBlock: { snapshot in
+            
+            if snapshot.exists() {
+                let coordArray = snapshot.value as! [CLLocationDegrees]
+                let latitude = coordArray[0]
+                let longitude = coordArray[1]
+                
+                AppData.sharedInstance.blinkieLocation = CLLocationCoordinate2DMake(latitude, longitude)
+                NSNotificationCenter.defaultCenter().postNotificationName(blinkieUpdateNotification, object: self)
+            } else {
+                AppData.sharedInstance.blinkieLocation = CLLocationCoordinate2DMake(0, 0)
+                NSNotificationCenter.defaultCenter().postNotificationName(blinkieUpdateNotification, object: self)
+            }
+        })
     }
 }

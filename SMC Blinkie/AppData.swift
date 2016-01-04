@@ -16,4 +16,6 @@ class AppData {
     var isAdmin = false
     
     var currentPins = [PassengerPin]()
+    
+    var blinkieLocation = CLLocationCoordinate2D()
 }

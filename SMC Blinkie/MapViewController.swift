@@ -18,9 +18,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     let databaseManager = DatabaseManager(root: "https://smcblinkie.firebaseio.com")
     var myPin = MKPointAnnotation()
     var blinkieMarker = MKPointAnnotation()
+    
     var pinPlaced = false
     var adminPins = [PassengerPin]()
     var myLastLocation = CLLocationCoordinate2D()
+    var myPinRadius = CLCircularRegion()
+    var pinTimer = NSTimer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +76,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if !AppData.sharedInstance.isAdmin {
             if !pinPlaced {
                 myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+                myPinRadius = CLCircularRegion(center: myPin.coordinate, radius: 45, identifier: "pinRadius")
+                pinTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "checkPinDistance", userInfo: nil, repeats: true)
                 mapView.addAnnotation(myPin)
                 databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
                 pinPlaced = true
                 pinBarButton.title = "Unpin"
             } else {
+                pinTimer.invalidate()
                 mapView.removeAnnotation(myPin)
                 databaseManager.removePinFromDatabase(UIDevice.currentDevice().identifierForVendor!.UUIDString)
                 pinPlaced = false
@@ -179,6 +185,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         if mapView.userLocation.coordinate.latitude != myLastLocation.latitude && mapView.userLocation.coordinate.longitude != myLastLocation.longitude {
             databaseManager.setBlinkieLocation(mapView.userLocation.coordinate)
             myLastLocation = mapView.userLocation.coordinate
+        }
+    }
+    
+    // Checks that the student hasn't strayed too far from their placed pin
+    func checkPinDistance() {
+        if !myPinRadius.containsCoordinate(mapView.userLocation.coordinate) {
+            self.pinButtonPressed(UIBarButtonItem())
+            
+            let alert = UIAlertController(title: "Leaving Pin!",
+                message: "You can remove your pin or change it to your current location",
+                preferredStyle: .Alert)
+            
+            let changeAction = UIAlertAction(title: "Change",
+                style: .Default,
+                handler: { (action:UIAlertAction) -> Void in
+                    self.pinButtonPressed(UIBarButtonItem())
+            })
+            
+            let removeAction = UIAlertAction(title: "Remove",
+                style: .Default,
+                handler: { (action:UIAlertAction) -> Void in
+            })
+            
+            alert.addAction(removeAction)
+            alert.addAction(changeAction)
+            
+            presentViewController(alert, animated: true, completion: nil)
         }
     }
     

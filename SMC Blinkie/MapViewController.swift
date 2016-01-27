@@ -75,13 +75,28 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
         if !AppData.sharedInstance.isAdmin {
             if !pinPlaced {
-                myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
-                myPinRadius = CLCircularRegion(center: myPin.coordinate, radius: 45, identifier: "pinRadius")
-                pinTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "checkPinDistance", userInfo: nil, repeats: true)
-                mapView.addAnnotation(myPin)
-                databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
-                pinPlaced = true
-                pinBarButton.title = "Unpin"
+                if isInNDArea() {
+                    myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
+                    myPinRadius = CLCircularRegion(center: myPin.coordinate, radius: 45, identifier: "pinRadius")
+                    pinTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "checkPinDistance", userInfo: nil, repeats: true)
+                    mapView.addAnnotation(myPin)
+                    databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
+                    pinPlaced = true
+                    pinBarButton.title = "Unpin"
+                }else{
+                    let alert = UIAlertController(title: "Not In the ND/SMC Area!",
+                        message: "The Blinkie does not come to this area",
+                        preferredStyle: .Alert)
+                    
+                    let confirmAction = UIAlertAction(title: "Ok",
+                        style: .Default,
+                        handler: { (action:UIAlertAction) -> Void in
+                    })
+                    
+                    alert.addAction(confirmAction)
+                    
+                    presentViewController(alert, animated: true, completion: nil)
+                }
             } else {
                 pinTimer.invalidate()
                 mapView.removeAnnotation(myPin)
@@ -162,6 +177,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             blinkieMarker.coordinate = AppData.sharedInstance.blinkieLocation
             mapView.addAnnotation(blinkieMarker)
         }
+    }
+    
+    // Checks that the user's current location is within relevant hardcoded area
+    func isInNDArea() -> Bool {
+        let region = ["NW" : (41.712092, -86.263139), "NE" : (41.712092, -86.238742), "SW" : (41.701130, -86.263139), "SE" : (41.701130, -86.238742)]
+        let userLat = mapView.userLocation.coordinate.latitude
+        let userLon = mapView.userLocation.coordinate.longitude
+        
+        if userLat > region["SW"]!.0 && userLat < region["NW"]!.0 {
+            if userLon > region["SW"]!.1 && userLon < region["SE"]!.1 {
+                return true
+            }
+        }
+        return false
     }
     
     // MARK: Admin Specific Functions

@@ -11,8 +11,8 @@
 - [X] Admin can remove student pins from database when picked up  
 - [X] Alert student when leaving their pin location  
 - [X] Restrict pin placement if not in ND/SMC area  
-- [ ] Test good/bad pin placement on actual device
+- [X] Test good/bad pin placement on actual device
+- [X] Restrict student pin ability if pressed too many times  
 - [ ] Map overlay of common Blinkie route  
-- [ ] Restrict student pin ability if pressed too many times  
 - [ ] App usage instructions button  
 - [ ] Configure authentication and database security rules  

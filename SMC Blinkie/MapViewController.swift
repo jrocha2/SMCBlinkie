@@ -24,6 +24,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var myLastLocation = CLLocationCoordinate2D()
     var myPinRadius = CLCircularRegion()
     var pinTimer = NSTimer()
+    var recentPins = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +42,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         } else {
             databaseManager.observeBlinkieLocation()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateBlinkieMarker", name: blinkieUpdateNotification, object: nil)
+            let _ = NSTimer.scheduledTimerWithTimeInterval(90, target: self, selector: "decrementRecentPins", userInfo: nil, repeats: true)
         }
     }
 
@@ -75,18 +77,26 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
         if !AppData.sharedInstance.isAdmin {
             if !pinPlaced {
-                if isInNDArea() {
+                if isInNDArea() && recentPins < 5 {
                     myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
                     myPinRadius = CLCircularRegion(center: myPin.coordinate, radius: 45, identifier: "pinRadius")
                     pinTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "checkPinDistance", userInfo: nil, repeats: true)
                     mapView.addAnnotation(myPin)
                     databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
                     pinPlaced = true
+                    recentPins++
                     pinBarButton.title = "Unpin"
                 }else{
-                    let alert = UIAlertController(title: "Not In the ND/SMC Area!",
-                        message: "The Blinkie does not come to this area",
-                        preferredStyle: .Alert)
+                    var title = "", message = ""
+                    if !isInNDArea() {
+                        title = "Not In the ND/SMC Area!"
+                        message = "The Blinkie does not come to this area"
+                    } else {
+                        title = "Don't Spam Your Location!"
+                        message = "You must wait awhile before you can place your pin again"
+                    }
+                    
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
                     
                     let confirmAction = UIAlertAction(title: "Ok",
                         style: .Default,
@@ -176,6 +186,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             blinkieMarker.title = "Blinkie"
             blinkieMarker.coordinate = AppData.sharedInstance.blinkieLocation
             mapView.addAnnotation(blinkieMarker)
+        }
+    }
+    
+    // Updates recentPins on a timer so that users cannot spam pin/unpin
+    func decrementRecentPins() {
+        if recentPins > 0 {
+            recentPins--
         }
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7276F651C676E6A00B1C086 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7276F641C676E6A00B1C086 /* GoogleService-Info.plist */; };
 		E7561DED1C2B45AE00D542A0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7561DEC1C2B45AE00D542A0 /* AppData.swift */; };
 		E7561DEF1C2B472400D542A0 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7561DEE1C2B472400D542A0 /* MapViewController.swift */; };
 		E767E1451C361F2F0036F5B3 /* PassengerPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767E1441C361F2F0036F5B3 /* PassengerPin.swift */; };
@@ -23,6 +24,8 @@
 		1E769590B11C9DF0A7055F37 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		454EBD9DF846BF14767920ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		87FA1DB8DFEDEBB3E9F6FD5C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E7276F641C676E6A00B1C086 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E7276F671C6770F000B1C086 /* SMC Blinkie-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SMC Blinkie-Bridging-Header.h"; sourceTree = "<group>"; };
 		E7561DEC1C2B45AE00D542A0 /* AppData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		E7561DEE1C2B472400D542A0 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E767E1441C361F2F0036F5B3 /* PassengerPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerPin.swift; sourceTree = "<group>"; };
@@ -68,6 +71,7 @@
 		E7C6888E1C277C8B00BFD0D0 = {
 			isa = PBXGroup;
 			children = (
+				E7276F641C676E6A00B1C086 /* GoogleService-Info.plist */,
 				E7C688991C277C8B00BFD0D0 /* SMC Blinkie */,
 				E7C688981C277C8B00BFD0D0 /* Products */,
 				3F0D4C199C06FA312F07D1CD /* Pods */,
@@ -86,15 +90,16 @@
 		E7C688991C277C8B00BFD0D0 /* SMC Blinkie */ = {
 			isa = PBXGroup;
 			children = (
+				E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */,
 				E7561DEC1C2B45AE00D542A0 /* AppData.swift */,
 				E7B253541C33BF28007DAABD /* DatabaseManager.swift */,
-				E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */,
 				E7561DEE1C2B472400D542A0 /* MapViewController.swift */,
 				E767E1441C361F2F0036F5B3 /* PassengerPin.swift */,
 				E7C6889E1C277C8B00BFD0D0 /* Main.storyboard */,
 				E7C688A11C277C8B00BFD0D0 /* Assets.xcassets */,
 				E7C688A31C277C8B00BFD0D0 /* LaunchScreen.storyboard */,
 				E7C6889A1C277C8B00BFD0D0 /* AppDelegate.swift */,
+				E7276F671C6770F000B1C086 /* SMC Blinkie-Bridging-Header.h */,
 				E7C688A61C277C8B00BFD0D0 /* Info.plist */,
 			);
 			path = "SMC Blinkie";
@@ -163,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7C688A51C277C8B00BFD0D0 /* LaunchScreen.storyboard in Resources */,
+				E7276F651C676E6A00B1C086 /* GoogleService-Info.plist in Resources */,
 				E7C688A21C277C8B00BFD0D0 /* Assets.xcassets in Resources */,
 				E7C688A01C277C8B00BFD0D0 /* Main.storyboard in Resources */,
 			);
@@ -344,11 +350,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "SMC Blinkie/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jrocha2.SMC-Blinkie";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SMC Blinkie/SMC Blinkie-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -359,11 +367,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "SMC Blinkie/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "jrocha2.SMC-Blinkie";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "SMC Blinkie/SMC Blinkie-Bridging-Header.h";
 			};
 			name = Release;
 		};

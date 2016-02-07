@@ -4,6 +4,7 @@
 use_frameworks!
 
 pod 'Firebase', '>= 2.5.0'
+pod 'Google/SignIn'
 
 target 'SMC Blinkie' do
 

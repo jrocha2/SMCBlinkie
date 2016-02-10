@@ -21,10 +21,7 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
         GIDSignIn.sharedInstance().uiDelegate = self
         // Attempt to sign in silently, this will succeed if
         // the user has recently been authenticated
-        
         GIDSignIn.sharedInstance().signInSilently()
-        authenticateWithGoogle()
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,10 +31,12 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
     
     @IBAction func adminButtonPressed() {
         AppData.sharedInstance.isAdmin = true
+        authenticateWithGoogle()
     }
     
     @IBAction func studentButtonPressed() {
         AppData.sharedInstance.isAdmin = false
+        authenticateWithGoogle()
     }
     
     // Wire up to a button tap
@@ -58,6 +57,8 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
                 ref.authWithOAuthProvider("google", token: user.authentication.accessToken, withCompletionBlock: { (error, authData) in
                     // User is logged in!
                     print("Logged IN!")
+                    print(authData.providerData["email"])
+                    self.performSegueWithIdentifier("authSegue", sender: nil)
                 })
             } else {
                 // Don't assert this error it is commonly returned as nil

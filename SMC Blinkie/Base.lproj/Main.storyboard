@@ -22,7 +22,6 @@
                                 <state key="normal" title="Admin"/>
                                 <connections>
                                     <action selector="adminButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="2P9-0Y-rhC"/>
-                                    <segue destination="Gbx-B7-DgN" kind="show" id="jRC-hm-EnY"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v9E-Du-2q2">
@@ -30,7 +29,6 @@
                                 <state key="normal" title="Student"/>
                                 <connections>
                                     <action selector="studentButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="1e6-M5-dTt"/>
-                                    <segue destination="Gbx-B7-DgN" kind="show" id="eph-qa-Q8x"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -42,6 +40,9 @@
                             <constraint firstItem="bvB-qq-iU9" firstAttribute="centerX" secondItem="v9E-Du-2q2" secondAttribute="centerX" id="xCG-Qv-JvA"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="Gbx-B7-DgN" kind="show" identifier="authSegue" id="lJR-Uv-KAj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -104,7 +105,4 @@
             <point key="canvasLocation" x="884" y="302"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="jRC-hm-EnY"/>
-    </inferredMetricsTieBreakers>
 </document>

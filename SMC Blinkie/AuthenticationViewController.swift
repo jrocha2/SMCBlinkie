@@ -55,10 +55,29 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
             if (error == nil) {
                 // Auth with Firebase
                 ref.authWithOAuthProvider("google", token: user.authentication.accessToken, withCompletionBlock: { (error, authData) in
-                    // User is logged in!
+                    
                     print("Logged IN!")
-                    print(authData.providerData["email"])
-                    self.performSegueWithIdentifier("authSegue", sender: nil)
+                    
+                    let userEmail = authData.providerData["email"] as! String
+                    
+                    // Check to see that email address is of correct school
+                    if (userEmail.containsString("@nd.edu") || userEmail.containsString("@saintmarys.edu")) {
+                        self.performSegueWithIdentifier("authSegue", sender: nil)
+                    } else {
+                        let alert = UIAlertController(title: "Not A Valid Email Address", message: "Must be affiliated with Saint Mary's or Notre Dame to use this application", preferredStyle: .Alert)
+                        
+                        let confirmAction = UIAlertAction(title: "Ok",
+                            style: .Default,
+                            handler: { (action:UIAlertAction) -> Void in
+                        })
+                        
+                        alert.addAction(confirmAction)
+                        
+                        self.presentViewController(alert, animated: true, completion: nil)
+                        
+                        self.signOut()
+                    }
+                    
                 })
             } else {
                 // Don't assert this error it is commonly returned as nil

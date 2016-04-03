@@ -13,6 +13,5 @@
 - [X] Restrict pin placement if not in ND/SMC area  
 - [X] Test good/bad pin placement on actual device
 - [X] Restrict student pin ability if pressed too many times  
-- [ ] Map overlay of common Blinkie route  
-- [ ] App usage instructions button  
-- [ ] Configure authentication and database security rules  
+- [X] Configure authentication 
+- [ ] Add app usage instructions? 

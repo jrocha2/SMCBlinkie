@@ -33,16 +33,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Watch Database as admin
         if AppData.sharedInstance.isAdmin {
             databaseManager.observePins()
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateStudentPins", name: currentPinsUpdateNotification, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.updateStudentPins), name: currentPinsUpdateNotification, object: nil)
             myLastLocation = mapView.userLocation.coordinate
             databaseManager.setBlinkieLocation(myLastLocation)
             
             // This timer updates the Blinkie's coordinates in the database every 10 seconds as of now
-            let _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "updateBlinkieLocation", userInfo: nil, repeats: true)
+            let _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(MapViewController.updateBlinkieLocation), userInfo: nil, repeats: true)
         } else {
             databaseManager.observeBlinkieLocation()
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateBlinkieMarker", name: blinkieUpdateNotification, object: nil)
-            let _ = NSTimer.scheduledTimerWithTimeInterval(90, target: self, selector: "decrementRecentPins", userInfo: nil, repeats: true)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.updateBlinkieMarker), name: blinkieUpdateNotification, object: nil)
+            let _ = NSTimer.scheduledTimerWithTimeInterval(90, target: self, selector: #selector(MapViewController.decrementRecentPins), userInfo: nil, repeats: true)
         }
     }
 
@@ -80,11 +80,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 if isInNDArea() && recentPins < 5 {
                     myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
                     myPinRadius = CLCircularRegion(center: myPin.coordinate, radius: 45, identifier: "pinRadius")
-                    pinTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "checkPinDistance", userInfo: nil, repeats: true)
+                    pinTimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(MapViewController.checkPinDistance), userInfo: nil, repeats: true)
                     mapView.addAnnotation(myPin)
                     databaseManager.addPinToDatabase(mapView.userLocation.coordinate)
                     pinPlaced = true
-                    recentPins++
+                    recentPins += 1
                     pinBarButton.title = "Unpin"
                 }else{
                     var title = "", message = ""
@@ -174,10 +174,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let alert = UIAlertController(title: "Blinkie Not Found",
                 message: "Either the Blinkie isn't running or is not broadcasting its location at this time",
                 preferredStyle: .Alert)
-            let confirmAction = UIAlertAction(title: "Ok",
-                style: .Default) { (action: UIAlertAction) -> Void in
+            let confirmAction = UIAlertAction(title: "Ok", style: .Default)
+            { (action: UIAlertAction) -> Void in }
+            
+            let callAction = UIAlertAction(title: "Call SMC Security", style: .Default)
+            { (action: UIAlertAction) -> Void in
+                if let url = NSURL(string: "tel://\(5742845000)") {
+                    UIApplication.sharedApplication().openURL(url)
+                }
             }
             
+            alert.addAction(callAction)
             alert.addAction(confirmAction)
             presentViewController(alert, animated: true, completion: nil)
             
@@ -192,7 +199,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // Updates recentPins on a timer so that users cannot spam pin/unpin
     func decrementRecentPins() {
         if recentPins > 0 {
-            recentPins--
+            recentPins -= 1
         }
     }
     
@@ -243,14 +250,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 message: "You can remove your pin or change it to your current location",
                 preferredStyle: .Alert)
             
-            let changeAction = UIAlertAction(title: "Change",
-                style: .Default,
+            let changeAction = UIAlertAction(title: "Change", style: .Default,
                 handler: { (action:UIAlertAction) -> Void in
                     self.pinButtonPressed(UIBarButtonItem())
             })
             
-            let removeAction = UIAlertAction(title: "Remove",
-                style: .Default,
+            let removeAction = UIAlertAction(title: "Remove", style: .Default,
                 handler: { (action:UIAlertAction) -> Void in
             })
             

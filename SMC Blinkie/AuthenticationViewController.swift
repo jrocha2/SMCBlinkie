@@ -66,7 +66,7 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
                     } else {
                         let alert = UIAlertController(title: "Not A Valid Email Address", message: "Must be affiliated with Saint Mary's or Notre Dame to use this application", preferredStyle: .Alert)
                         
-                        let confirmAction = UIAlertAction(title: "Ok",
+                        let confirmAction = UIAlertAction(title: "Sign Out",
                             style: .Default,
                             handler: { (action:UIAlertAction) -> Void in
                         })

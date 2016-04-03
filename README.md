@@ -14,4 +14,6 @@
 - [X] Test good/bad pin placement on actual device
 - [X] Restrict student pin ability if pressed too many times  
 - [X] Configure authentication 
+- [ ] Remove student/admin option by adding admin email(s) to database
+- [ ] Create app icon and launch screen
 - [ ] Add app usage instructions? 

@@ -12,6 +12,7 @@ import Firebase
 class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSignInUIDelegate {
 
     var ref: Firebase!
+    var appJustOpened : Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +20,23 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
         // Setup delegates
         GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().uiDelegate = self
-        // Attempt to sign in silently, this will succeed if
-        // the user has recently been authenticated
-        GIDSignIn.sharedInstance().signInSilently()
     }
 
+    // Signs in/out depending on how this the app got to this view
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        if appJustOpened {
+            // Attempt to sign in silently, this will succeed if
+            // the user has recently been authenticated
+            GIDSignIn.sharedInstance().signInSilently()
+            appJustOpened = false
+        } else {
+            signOut()
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="MJ3-e2-1pd">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Authentication View Controller-->
@@ -40,13 +41,14 @@
                             <constraint firstItem="bvB-qq-iU9" firstAttribute="centerX" secondItem="v9E-Du-2q2" secondAttribute="centerX" id="xCG-Qv-JvA"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="6zw-YE-u7Y"/>
                     <connections>
                         <segue destination="Gbx-B7-DgN" kind="show" identifier="authSegue" id="lJR-Uv-KAj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122" y="302"/>
+            <point key="canvasLocation" x="934" y="302"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="tpI-gJ-EB9">
@@ -68,31 +70,47 @@
                                 <color key="barTintColor" red="0.17679277062210658" green="0.73480424206797779" blue="0.82174410990000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <navigationItem title="Blinkie Locator" id="388-eY-z7B">
-                                        <barButtonItem key="leftBarButtonItem" title="My Location" id="lQh-j0-wcx">
+                                        <barButtonItem key="leftBarButtonItem" title="Sign Out" id="wDu-kc-UNg">
                                             <color key="tintColor" red="0.82174410990000002" green="0.35047647430000001" blue="0.13085232569999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
-                                                <action selector="leftButtonPressed:" destination="Gbx-B7-DgN" id="XZE-GR-DPX"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Pin" id="DYs-4f-bH7">
-                                            <color key="tintColor" red="0.82174410990000002" green="0.35047647426600176" blue="0.13085232571740302" alpha="1" colorSpace="calibratedRGB"/>
-                                            <connections>
-                                                <action selector="pinButtonPressed:" destination="Gbx-B7-DgN" id="thF-AA-ES2"/>
+                                                <action selector="signOutPressed:" destination="Gbx-B7-DgN" id="eA7-t3-dZU"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uTh-OI-Hra">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="My Location" id="lQh-j0-wcx">
+                                        <color key="tintColor" red="0.82174410990000002" green="0.35047647430000001" blue="0.13085232569999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="leftButtonPressed:" destination="Gbx-B7-DgN" id="XZE-GR-DPX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0vv-UF-t0n"/>
+                                    <barButtonItem title="Pin" id="DYs-4f-bH7">
+                                        <color key="tintColor" red="0.82174410990000002" green="0.35047647426600176" blue="0.13085232571740302" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="pinButtonPressed:" destination="Gbx-B7-DgN" id="thF-AA-ES2"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="barTintColor" red="0.16078431372549021" green="0.68235294117647061" blue="0.7803921568627451" alpha="1" colorSpace="calibratedRGB"/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.17679277060000001" green="0.73480424209999995" blue="0.82174410990000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="K5k-PH-GX8" secondAttribute="trailing" id="NeE-0W-gPf"/>
-                            <constraint firstItem="K5k-PH-GX8" firstAttribute="bottom" secondItem="bzG-iF-2dz" secondAttribute="top" id="aAX-Aq-7Lb"/>
-                            <constraint firstItem="K5k-PH-GX8" firstAttribute="leading" secondItem="8oA-Fy-MQg" secondAttribute="leading" id="dF9-8Q-GYr"/>
+                            <constraint firstItem="K5k-PH-GX8" firstAttribute="top" secondItem="mij-30-rop" secondAttribute="bottom" id="22e-hm-ZDc"/>
+                            <constraint firstItem="K5k-PH-GX8" firstAttribute="trailing" secondItem="mij-30-rop" secondAttribute="trailing" id="7a5-4Y-u0j"/>
+                            <constraint firstItem="K5k-PH-GX8" firstAttribute="trailing" secondItem="uTh-OI-Hra" secondAttribute="trailing" id="J70-89-SHf"/>
+                            <constraint firstItem="K5k-PH-GX8" firstAttribute="leading" secondItem="mij-30-rop" secondAttribute="leading" id="bFj-6Y-ABx"/>
+                            <constraint firstItem="K5k-PH-GX8" firstAttribute="leading" secondItem="uTh-OI-Hra" secondAttribute="leading" id="cp8-Da-bGm"/>
                             <constraint firstItem="mij-30-rop" firstAttribute="top" secondItem="Wyd-dh-xqE" secondAttribute="bottom" id="dmV-ch-shB"/>
-                            <constraint firstItem="mij-30-rop" firstAttribute="trailing" secondItem="K5k-PH-GX8" secondAttribute="trailing" id="eiV-Rs-Awa"/>
-                            <constraint firstItem="mij-30-rop" firstAttribute="leading" secondItem="K5k-PH-GX8" secondAttribute="leading" id="gJw-gz-PUm"/>
-                            <constraint firstItem="K5k-PH-GX8" firstAttribute="top" secondItem="8oA-Fy-MQg" secondAttribute="top" constant="64" id="t2m-j1-86o"/>
+                            <constraint firstItem="K5k-PH-GX8" firstAttribute="bottom" secondItem="bzG-iF-2dz" secondAttribute="top" id="pck-5K-4Zq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uTh-OI-Hra" secondAttribute="trailing" constant="-20" id="qDy-bk-Imb"/>
+                            <constraint firstItem="uTh-OI-Hra" firstAttribute="leading" secondItem="8oA-Fy-MQg" secondAttribute="leadingMargin" constant="-20" id="qrO-UQ-pyc"/>
+                            <constraint firstItem="bzG-iF-2dz" firstAttribute="top" secondItem="uTh-OI-Hra" secondAttribute="bottom" id="wgR-fi-Ln0"/>
                         </constraints>
                     </view>
                     <connections>
@@ -102,7 +120,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WzA-o8-2an" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="302"/>
+            <point key="canvasLocation" x="1696" y="302"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="3PZ-F7-Noe">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="MJ3-e2-1pd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lEb-1Z-5Yx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="DOB-zo-eoc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hC0-87-RjQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="122" y="302"/>
         </scene>
     </scenes>
 </document>

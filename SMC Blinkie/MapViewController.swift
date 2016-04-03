@@ -72,6 +72,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    // Leaves mapview and the authViewController signs out of Google
+    @IBAction func signOutPressed(sender: UIBarButtonItem) {
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     // Students press this to place their pin and remove it
     // Admins press this button to ...
     @IBAction func pinButtonPressed(sender: UIBarButtonItem) {

@@ -59,6 +59,8 @@ class AuthenticationViewController: UIViewController, GIDSignInDelegate, GIDSign
     
     func signOut() {
         GIDSignIn.sharedInstance().signOut()
+        let db = DatabaseManager(root: "https://smcblinkie.firebaseio.com/")
+        db.detachFromDatabase()
         ref.unauth()
     }
     

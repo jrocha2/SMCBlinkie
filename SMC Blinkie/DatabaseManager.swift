@@ -87,4 +87,16 @@ class DatabaseManager {
         let blinkieRef = rootRef.childByAppendingPath("blinkieLocation")
         blinkieRef.setValue([location.latitude, location.longitude])
     }
+    
+    // Removes any observers possibly created in this Database Manager
+    func detachFromDatabase() {
+        // These are hard coded in as the only two places observers are possibly made
+        rootRef.childByAppendingPath("blinkieLocation").removeAllObservers()
+        rootRef.childByAppendingPath("currentPins").removeAllObservers()
+        
+        // If the admin is leaving, set Blinkie coordinate to not running
+        if AppData.sharedInstance.isAdmin {
+            setBlinkieLocation(CLLocationCoordinate2DMake(0, 0))
+        }
+    }
 }

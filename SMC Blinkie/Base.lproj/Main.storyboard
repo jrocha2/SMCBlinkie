@@ -69,6 +69,7 @@
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <color key="barTintColor" red="0.0" green="0.20392156862745098" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
                                 <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                     <color key="textColor" red="0.49411764705882355" green="0.68235294117647061" blue="0.89411764705882357" alpha="1" colorSpace="calibratedRGB"/>
                                 </textAttributes>
                                 <items>

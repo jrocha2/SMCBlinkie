@@ -30,7 +30,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         mapView.delegate = self
     
-        // Watch Database as admin
+        // Watch Database as admin looking at pins
         if AppData.sharedInstance.isAdmin {
             databaseManager.observePins()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.updateStudentPins), name: currentPinsUpdateNotification, object: nil)
@@ -39,6 +39,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             // This timer updates the Blinkie's coordinates in the database every 10 seconds as of now
             let _ = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(MapViewController.updateBlinkieLocation), userInfo: nil, repeats: true)
+        // Watch Database as student observing the Blinkie coordinates
         } else {
             databaseManager.observeBlinkieLocation()
             NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MapViewController.updateBlinkieMarker), name: blinkieUpdateNotification, object: nil)
@@ -78,10 +79,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     // Students press this to place their pin and remove it
-    // Admins press this button to ...
     @IBAction func pinButtonPressed(sender: UIBarButtonItem) {
         if !AppData.sharedInstance.isAdmin {
             if !pinPlaced {
+                // Check to see that they are in correct area and haven't spammed the pin button
                 if isInNDArea() && recentPins < 5 {
                     myPin.coordinate = CLLocationCoordinate2D(latitude: mapView.userLocation.coordinate.latitude, longitude: mapView.userLocation.coordinate.longitude)
                     myPinRadius = CLCircularRegion(center: myPin.coordinate, radius: 45, identifier: "pinRadius")
@@ -91,6 +92,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     pinPlaced = true
                     recentPins += 1
                     pinBarButton.title = "Unpin"
+                // If they have, then show an alert with appropriate message
                 }else{
                     var title = "", message = ""
                     if !isInNDArea() {
@@ -112,6 +114,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     
                     presentViewController(alert, animated: true, completion: nil)
                 }
+            // If the button is in fact "Unpin", remove it from database
             } else {
                 pinTimer.invalidate()
                 mapView.removeAnnotation(myPin)
@@ -150,7 +153,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
             return view
             
-            // Execute the following if a point placed by the user
+        // Execute the following if a point placed by the user
         } else if let annotation = annotation as? MKPointAnnotation {
             if annotation.title == "Blinkie" {
                 let identifier = "blinkieMarker"
@@ -175,6 +178,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func updateBlinkieMarker() {
         let blinkieLocation = AppData.sharedInstance.blinkieLocation
         
+        // Blinkie location when not broadcasting is set to 0,0 in latitude,longitude
         if blinkieLocation.latitude == 0 && blinkieLocation.longitude == 0 {
             let alert = UIAlertController(title: "Blinkie Not Found",
                 message: "Either the Blinkie isn't running or is not broadcasting its location at this time",
@@ -192,7 +196,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             alert.addAction(callAction)
             alert.addAction(confirmAction)
             presentViewController(alert, animated: true, completion: nil)
-            
+        
+        // Update the coordinates and show on map
         } else {
             mapView.removeAnnotation(blinkieMarker)
             blinkieMarker.title = "Blinkie"
@@ -208,7 +213,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    // Checks that the user's current location is within relevant hardcoded area
+    // Checks that the user's current location is within relevant hardcoded area in lat/lon
     func isInNDArea() -> Bool {
         let region = ["NW" : (41.712092, -86.263139), "NE" : (41.712092, -86.238742), "SW" : (41.701130, -86.263139), "SE" : (41.701130, -86.238742)]
         let userLat = mapView.userLocation.coordinate.latitude

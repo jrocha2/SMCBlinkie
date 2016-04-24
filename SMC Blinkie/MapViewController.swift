@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     var title = "", message = ""
                     if !isInNDArea() {
                         title = "Not In the ND/SMC Area!"
-                        message = "The Blinkie does not come to this area"
+                        message = "You can only request a pick up from the St. Mary's campus or the Grotto at Notre Dame"
                     } else {
                         title = "Don't Spam Your Location!"
                         message = "You must wait awhile before you can place your pin again"

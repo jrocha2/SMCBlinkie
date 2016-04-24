@@ -90,8 +90,8 @@
 		E7C688991C277C8B00BFD0D0 /* SMC Blinkie */ = {
 			isa = PBXGroup;
 			children = (
-				E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */,
 				E7561DEC1C2B45AE00D542A0 /* AppData.swift */,
+				E79DFAD61C29078F0066ED5F /* AuthenticationViewController.swift */,
 				E7B253541C33BF28007DAABD /* DatabaseManager.swift */,
 				E7561DEE1C2B472400D542A0 /* MapViewController.swift */,
 				E767E1441C361F2F0036F5B3 /* PassengerPin.swift */,

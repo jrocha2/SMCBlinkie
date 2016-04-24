@@ -15,6 +15,6 @@
 - [X] Restrict student pin ability if pressed too many times  
 - [X] Configure authentication 
 - [X] Create app icon and launch screen  
-- [ ] Add alert when placing pin on ND campus that blinkie only picks up from Grotto
+- [X] Add alert for students trying to place pins outside of the designated area
 - [ ] Remove student/admin option by adding admin email(s) to database
 - [ ] Add app usage instructions? 

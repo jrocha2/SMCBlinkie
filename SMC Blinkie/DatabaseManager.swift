@@ -5,11 +5,14 @@
 //  Created by John Rocha on 12/30/15.
 //  Copyright © 2015 John Rocha. All rights reserved.
 //
+//  Class to handle all of the interactions with the Database (Firebase)
 
 import Foundation
 import Firebase
 import MapKit
 
+// Global notification names that are posted here when things are updated, and received in other
+// classes that have observers for these so that they update their views accordingly
 let currentPinsUpdateNotification = "com.smcblinkie.currentPinsUpdatedNotification"
 let blinkieUpdateNotification = "com.smcblinkie.blinkieUpdateNotification"
 
